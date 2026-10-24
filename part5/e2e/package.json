@@ -1,0 +1,5 @@
+{
+  "name": "part5-e2e", "private": true, "type": "module",
+  "scripts": { "test": "playwright test", "build": "node --check playwright.config.js" },
+  "devDependencies": { "@playwright/test": "^1.56.1" }
+}

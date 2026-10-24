@@ -9,5 +9,6 @@ These are planning estimates for a learner with the prerequisite programming kno
 | 2 | 25 hours | 18-32 hours | Forms, effects, CRUD, HTTP services, country search, weather and error handling |
 | 3 | 25 hours | 18-32 hours | Express API, MongoDB, validation, logging, deployment and full-stack verification |
 | 4 | 25 hours | 18-35 hours | Modular backend, helper/API tests, user management and token authentication |
+| 5 | 25 hours | 18-35 hours | React blog client, login state, component tests and full browser tests |
 
 Earlier submission entries explicitly described elapsed automation-work estimates. The course submission page currently exposes no edit control for those submitted rows. These human-workload estimates are recorded separately so they cannot be mistaken for measured time.
