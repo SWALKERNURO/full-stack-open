@@ -4,6 +4,6 @@ coverage/
 .env
 .env.*
 !.env.example
-public/
+part3/phonebook/public/
 playwright-report/
 test-results/
