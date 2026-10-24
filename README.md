@@ -10,6 +10,8 @@ Course exercise implementations and submissions.
 | 3 | Express/MongoDB phonebook with integrated frontend, 22 exercises | Submitted; live deployment verified |
 | 4 | Blog API, author helpers, users, authentication and API tests, 23 exercises | Submitted |
 | 5 | Routed and styled blog frontend, component/browser tests, 31 exercises | Verified; final submission confirmation pending |
+| 6 | [Zustand and TanStack Query applications](https://github.com/SWALKERNURO/fs-statemanagement), 22 exercises | All six required workflows passed; submission pending |
+| 7 | [Custom hooks and extended blog application](https://github.com/SWALKERNURO/fs-extension), 20 exercises | Implemented; required verification pending |
 
 The [Check coursework workflow](https://github.com/SWALKERNURO/full-stack-open/actions/workflows/check-coursework.yml) builds the applications, runs lint checks, verifies frontend interactions and backend persistence against disposable MongoDB databases, and runs the Part 5 application in Chromium. Check the latest run for the current verification result.
 
