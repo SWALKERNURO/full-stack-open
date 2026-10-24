@@ -20,6 +20,7 @@ jobs:
           --health-retries 12
     env:
       MONGODB_URI: mongodb://127.0.0.1:27017/phonebook_test
+      TEST_MONGODB_URI: mongodb://127.0.0.1:27017/bloglist_test
       NODE_ENV: test
     steps:
       - uses: actions/checkout@v4
@@ -30,4 +31,5 @@ jobs:
       - run: npm run build
       - run: npm run lint --workspace=part3/phonebook
       - run: npm test
-
+      - run: npm run lint --workspace=part4/bloglist
+      - run: npm test --workspace=part4/bloglist
