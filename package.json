@@ -1,0 +1,17 @@
+{
+  "name": "full-stack-open",
+  "private": true,
+  "type": "module",
+  "workspaces": ["part1/courseinfo", "part1/unicafe", "part1/anecdotes"],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "jsdom": "^26.1.0",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
