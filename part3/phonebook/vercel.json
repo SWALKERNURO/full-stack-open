@@ -1,7 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "express",
+  "framework": null,
   "installCommand": "cd ../.. && npm install --include=dev --no-audit --no-fund",
   "buildCommand": "npm run build",
-  "regions": ["pdx1"]
+  "outputDirectory": "dist",
+  "regions": ["pdx1"],
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/handler" },
+    { "source": "/info", "destination": "/api/handler" },
+    { "source": "/health", "destination": "/api/handler" }
+  ]
 }
