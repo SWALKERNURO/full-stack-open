@@ -25,6 +25,12 @@ In `part3/phonebook`, configure the private `MONGODB_URI_TEMPLATE` with a `<pass
 
 ## Deployment status
 
-Backend implementation and local/CI integration are prepared. MongoDB Atlas provisioning, an internet deployment, and deployed full-stack verification are pending. Exercises 3.10-3.12 and 3.21 must not be marked complete until those steps are actually verified.
+Live application: https://fullstack-course-phonebook.vercel.app/
 
-Deploy the backend together with its generated `dist` directory and set its private `MONGODB_URI`. The backend serves the frontend; no separate frontend deployment is needed.
+The application uses MongoDB Atlas persistence. Vercel serves the generated frontend and routes `/api/*`, `/info` and `/health` to the Express application under the same origin. Local execution continues to serve `dist` through Express.
+
+Verification includes live creation, persistence across browser reloads, and rejection of an invalid phone number. CI verifies the full API create/read/update/delete lifecycle, error handling, validation and the command-line add/list program against real MongoDB. The successful check run is https://github.com/SWALKERNURO/full-stack-open/actions/runs/40140374117 .
+
+Deploy from root directory `part3/phonebook`; the checked-in Vercel configuration installs the monorepo's build dependencies and publishes the generated `dist` folder. Set `MONGODB_URI` as a private, sensitive environment variable. Never put it in the frontend or version control.
+
+The approved temporary Atlas network rule expires on 2026-10-31. The deployed database connection needs an appropriate access-list entry after that expiry.
