@@ -5,12 +5,30 @@ import request from 'supertest'
 import app from './app.js'
 import Person from './models/person.js'
 import { connectDatabase } from './database.js'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+import path from 'node:path'
 
-beforeAll(async () => { await connectDatabase(); await Person.init() }, 20000)
+const execute = promisify(execFile)
+beforeAll(async () => {
+  const database = new URL(process.env.MONGODB_URI).pathname.slice(1)
+  if (!database.endsWith('_test')) throw new Error('Tests require a dedicated database ending in _test')
+  await connectDatabase(); await Person.init()
+}, 20000)
 beforeEach(async () => { await Person.deleteMany({}) })
 afterAll(async () => { await mongoose.connection.close() })
 
 describe('phonebook HTTP and database integration', () => {
+  it('runs the command-line add and list operations against MongoDB', async () => {
+    const script = path.join(import.meta.dirname, 'mongo.js')
+    const options = { cwd: import.meta.dirname, env: process.env, timeout: 20000 }
+    const added = await execute(process.execPath, [script, 'env-auth', 'CLI Fixture', '040-1234567'], options)
+    expect(added.stdout).toContain('added CLI Fixture number 040-1234567 to phonebook')
+    const listed = await execute(process.execPath, [script, 'env-auth'], options)
+    expect(listed.stdout).toContain('CLI Fixture 040-1234567')
+    expect(await Person.countDocuments({ name: 'CLI Fixture' })).toBe(1)
+  }, 25000)
+
   it('persists a record, lists it, reads it, updates it and deletes it', async () => {
     const created = await request(app).post('/api/persons').send({ name: 'Sample Person', number: '040-1234567' }).expect(201)
     expect(created.body.id).toMatch(/^[a-f\d]{24}$/)
