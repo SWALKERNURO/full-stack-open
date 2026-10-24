@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  },
+  "name": "part2-phonebook",
+  "private": true,
+  "dependencies": {
+    "react-dom": "^19.2.0",
+    "axios": "^1.11.0",
+    "react": "^19.2.0"
+  },
+  "type": "module",
+  "scripts": {
+    "preview": "vite preview",
+    "dev": "vite",
+    "build": "vite build",
+    "server": "json-server --watch db.json --port 3001"
+  }
+}

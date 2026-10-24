@@ -1,0 +1,5 @@
+body { font-family: sans-serif; line-height: 1.5; max-width: 48rem; margin: 2rem auto; padding: 0 1rem; }
+input, button { font: inherit; margin: .25rem; }
+.notification { border: 2px solid; border-radius: .3rem; padding: .75rem; background: #f1f5f1; }
+.success { color: #17652a; }
+.error { color: #9b2020; background: #fff0f0; }

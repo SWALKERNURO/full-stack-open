@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "name": "part2-courseinfo",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "preview": "vite preview",
+    "dev": "vite",
+    "build": "vite build"
+  }
+}
