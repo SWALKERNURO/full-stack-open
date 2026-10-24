@@ -2,7 +2,7 @@
   "name": "full-stack-open",
   "private": true,
   "type": "module",
-  "workspaces": ["part1/courseinfo", "part1/unicafe", "part1/anecdotes", "part2/courseinfo", "part2/phonebook", "part2/countries"],
+  "workspaces": ["part1/courseinfo", "part1/unicafe", "part1/anecdotes", "part2/courseinfo", "part2/phonebook", "part2/countries", "part3/phonebook"],
   "scripts": {
     "build": "npm run build --workspaces",
     "test": "vitest run"

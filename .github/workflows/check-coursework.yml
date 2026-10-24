@@ -8,6 +8,14 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:8
+        ports:
+          - 27017:27017
+    env:
+      MONGODB_URI: mongodb://127.0.0.1:27017/phonebook_test
+      NODE_ENV: test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,4 +23,5 @@ jobs:
           node-version: '24'
       - run: npm install --no-audit --no-fund
       - run: npm run build
+      - run: npm run lint --workspace=part3/phonebook
       - run: npm test
