@@ -2,6 +2,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import Blog from './bloglist/src/components/Blog.jsx'
 import BlogForm from './bloglist/src/components/BlogForm.jsx'
+import BlogDetails from './bloglist/src/components/BlogDetails.jsx'
 
 afterEach(cleanup)
 const blog = { id: 'one', title: 'Boundary notes', author: 'Avery', url: 'https://example.com/notes', likes: 3, user: { username: 'avery', name: 'Avery Fixture' } }
@@ -57,5 +58,28 @@ describe('blog creation form', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Create', exact: true }))
     await waitFor(() => expect(onCreate).toHaveBeenCalledTimes(1))
     expect(screen.getByLabelText('Title').value).toBe('Keep my draft')
+  })
+})
+
+describe('routed single-blog display', () => {
+  test('guests see all information and likes but no action buttons', () => {
+    render(<BlogDetails {...props} user={null} />)
+    expect(screen.getByRole('heading', { name: blog.title })).toBeTruthy()
+    expect(screen.getByText('By Avery')).toBeTruthy()
+    expect(screen.getByRole('link').getAttribute('href')).toBe(blog.url)
+    expect(screen.getByText('3')).toBeTruthy()
+    expect(screen.queryAllByRole('button')).toHaveLength(0)
+  })
+  test('an authenticated non-creator sees only the like action', () => {
+    render(<BlogDetails {...props} user={{ username: 'other' }} />)
+    expect(screen.getByRole('button', { name: 'Like', exact: true })).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'Remove' })).toBeNull()
+    expect(screen.getAllByRole('button')).toHaveLength(1)
+  })
+  test('the creator sees both like and remove actions', () => {
+    render(<BlogDetails {...props} />)
+    expect(screen.getByRole('button', { name: 'Like', exact: true })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Remove' })).toBeTruthy()
+    expect(screen.getAllByRole('button')).toHaveLength(2)
   })
 })

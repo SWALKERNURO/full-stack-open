@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { StyledForm } from '../ui.js'
 
 export default function BlogForm({ onCreate, onCancel }) {
   const [title, setTitle] = useState('')
@@ -15,11 +16,11 @@ export default function BlogForm({ onCreate, onCancel }) {
   }
   return <section aria-labelledby="create-heading">
     <h2 id="create-heading">Create a new blog</h2>
-    <form onSubmit={submit}>
+    <StyledForm onSubmit={submit}>
       <label>Title<input value={title} onChange={event => setTitle(event.target.value)} required /></label>
       <label>Author<input value={author} onChange={event => setAuthor(event.target.value)} /></label>
       <label>URL<input type="url" pattern="https?://.+" value={url} onChange={event => setUrl(event.target.value)} required /></label>
       <div className="actions"><button type="submit" disabled={busy}>Create</button><button type="button" onClick={onCancel} disabled={busy}>Cancel</button></div>
-    </form>
+    </StyledForm>
   </section>
 }

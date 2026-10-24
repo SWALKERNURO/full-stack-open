@@ -3,101 +3,133 @@ import { test, expect } from '@playwright/test'
 const owner = { username: 'avery', password: 'test-password', name: 'Avery Fixture' }
 const other = { username: 'blair', password: 'other-password', name: 'Blair Fixture' }
 const login = async (page, user = owner) => {
+  await page.getByRole('link', { name: 'Log in', exact: true }).click()
   await page.getByLabel('Username').fill(user.username)
   await page.getByLabel('Password', { exact: true }).fill(user.password)
   await page.getByRole('button', { name: 'Log in', exact: true }).click()
   await expect(page.getByText(`${user.name} logged in`, { exact: false })).toBeVisible()
+  await expect(page).toHaveURL(/\/$/)
 }
 const createBlog = async (page, title = 'Browser testing notes') => {
-  await page.getByRole('button', { name: 'Create new blog' }).click()
+  await page.getByRole('link', { name: 'Create new blog' }).click()
   await page.getByLabel('Title', { exact: true }).fill(title)
   await page.getByLabel('Author', { exact: true }).fill('Avery')
   await page.getByLabel('URL', { exact: true }).fill('https://example.com/browser-tests')
   await page.getByRole('button', { name: 'Create', exact: true }).click()
+  await expect(page).toHaveURL(/\/$/)
+  await expect(page.getByRole('article', { name: title, exact: true })).toBeVisible()
+}
+const openBlog = async (page, title = 'Browser testing notes') => {
+  await page.getByRole('link', { name: title, exact: true }).click()
+  await expect(page).toHaveURL(/\/blogs\//)
   const blog = page.getByRole('article', { name: title, exact: true })
-  await expect(blog).toBeVisible()
+  await expect(blog.getByRole('heading', { name: title })).toBeVisible()
   return blog
 }
+const seed = async (request, title = 'Public fixture', likes = 0) => {
+  const signedIn = await request.post('/api/login', { data: owner })
+  const { token } = await signedIn.json()
+  const created = await request.post('/api/blogs', { headers: { Authorization: `Bearer ${token}` }, data: { title, author: 'Avery', url: 'https://example.com/public', likes } })
+  expect(created.status()).toBe(201)
+  return created.json()
+}
 test.beforeEach(async ({ page, request }) => {
-  const reset = await request.post('/api/testing/reset')
-  expect(reset.status()).toBe(204)
+  expect((await request.post('/api/testing/reset')).status()).toBe(204)
   expect((await request.post('/api/users', { data: owner })).status()).toBe(201)
   expect((await request.post('/api/users', { data: other })).status()).toBe(201)
   await page.goto('/')
 })
-test('login form is initially shown and blogs are hidden', async ({ page }) => {
-  await expect(page.getByRole('heading', { name: 'Log in to blog list' })).toBeVisible()
+test('root shows public blogs and navigation leads to the login form', async ({ page }) => {
+  await expect(page.getByRole('heading', { name: 'Blog list', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Create new blog' })).toHaveCount(0)
+  await page.getByRole('link', { name: 'Log in', exact: true }).click()
+  await expect(page).toHaveURL(/\/login$/)
   await expect(page.getByLabel('Username')).toBeVisible()
   await expect(page.getByLabel('Password', { exact: true })).toBeVisible()
-  await expect(page.getByRole('region', { name: 'Blogs', exact: true })).toHaveCount(0)
 })
-test('correct login persists across reload; logout removes the stored session', async ({ page }) => {
+test('correct login persists across reload; logout returns to all blogs and clears session', async ({ page }) => {
   await login(page)
   await page.reload()
   await expect(page.getByText('Avery Fixture logged in', { exact: false })).toBeVisible()
   await page.getByRole('button', { name: 'Log out' }).click()
+  await expect(page).toHaveURL(/\/$/)
   await page.reload()
-  await expect(page.getByRole('heading', { name: 'Log in to blog list' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Log out' })).toHaveCount(0)
+  await expect(page.getByRole('link', { name: 'Log in', exact: true })).toBeVisible()
 })
-test('incorrect password shows an error and does not log in', async ({ page }) => {
+test('incorrect password shows an error and stays on login', async ({ page }) => {
+  await page.getByRole('link', { name: 'Log in', exact: true }).click()
   await page.getByLabel('Username').fill(owner.username)
   await page.getByLabel('Password', { exact: true }).fill('wrong-password')
   await page.getByRole('button', { name: 'Log in', exact: true }).click()
   await expect(page.getByRole('alert')).toContainText('Wrong username or password')
-  await expect(page.getByRole('heading', { name: 'Log in to blog list' })).toBeVisible()
+  await expect(page).toHaveURL(/\/login$/)
 })
-test('logged-in user creates a blog, sees notification and hidden form afterward', async ({ page }) => {
+test('creation redirects to all blogs and persists after reload', async ({ page }) => {
   await login(page)
   await createBlog(page)
   await expect(page.getByRole('status')).toContainText('Added Browser testing notes')
-  await expect(page.getByRole('button', { name: 'Create new blog' })).toBeVisible()
+  await expect(page.getByLabel('Title', { exact: true })).toHaveCount(0)
   await page.reload()
-  await expect(page.getByRole('article', { name: 'Browser testing notes', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Browser testing notes', exact: true })).toBeVisible()
 })
-test('a blog can be liked repeatedly without losing creator details', async ({ page }) => {
+test('a routed blog can be liked repeatedly without losing creator details', async ({ page }) => {
   await login(page)
-  const blog = await createBlog(page)
-  await blog.getByRole('button', { name: 'View' }).click()
+  await createBlog(page)
+  const blog = await openBlog(page)
   await blog.getByRole('button', { name: 'Like', exact: true }).click()
   await expect(blog.locator('.like-count')).toHaveText('1')
   await blog.getByRole('button', { name: 'Like', exact: true }).click()
   await expect(blog.locator('.like-count')).toHaveText('2')
   await expect(blog.getByText('Added by Avery Fixture')).toBeVisible()
+  await page.reload()
+  await expect(blog.locator('.like-count')).toHaveText('2')
 })
-test('owner can cancel deletion then confirm deletion', async ({ page }) => {
+test('owner can cancel deletion, then confirm and return to all blogs', async ({ page }) => {
   await login(page)
-  const blog = await createBlog(page)
-  await blog.getByRole('button', { name: 'View' }).click()
+  await createBlog(page)
+  const blog = await openBlog(page)
   page.once('dialog', dialog => dialog.dismiss())
   await blog.getByRole('button', { name: 'Remove' }).click()
   await expect(blog).toBeVisible()
   page.once('dialog', dialog => dialog.accept())
   await blog.getByRole('button', { name: 'Remove' }).click()
-  await expect(blog).toHaveCount(0)
+  await expect(page).toHaveURL(/\/$/)
+  await expect(page.getByRole('article')).toHaveCount(0)
   await page.reload()
   await expect(page.getByRole('article')).toHaveCount(0)
 })
-test('only the creator sees the remove button', async ({ page }) => {
+test('a different authenticated user can like but cannot remove the blog', async ({ page }) => {
   await login(page)
   await createBlog(page)
   await page.getByRole('button', { name: 'Log out' }).click()
   await login(page, other)
-  const blog = page.getByRole('article', { name: 'Browser testing notes', exact: true })
-  await blog.getByRole('button', { name: 'View' }).click()
+  const blog = await openBlog(page)
   await expect(blog.getByRole('button', { name: 'Remove' })).toHaveCount(0)
   await expect(blog.getByRole('button', { name: 'Like', exact: true })).toBeVisible()
 })
-test('blogs stay sorted by likes, highest first', async ({ page, request }) => {
-  const signedIn = await request.post('/api/login', { data: { username: owner.username, password: owner.password } })
-  const { token } = await signedIn.json()
-  for (const [title, likes] of [['Low', 1], ['High', 9], ['Middle', 4]]) {
-    const created = await request.post('/api/blogs', { headers: { Authorization: `Bearer ${token}` }, data: { title, author: 'Fixture', url: 'https://example.com/sorting', likes } })
-    expect(created.status()).toBe(201)
-  }
-  await login(page)
+test('blog list remains sorted by likes', async ({ page, request }) => {
+  for (const [title, likes] of [['Low', 1], ['High', 9], ['Middle', 4]]) await seed(request, title, likes)
+  await page.reload()
   const articles = page.getByRole('article')
   await expect(articles).toHaveCount(3)
   await expect(articles.nth(0)).toHaveAttribute('aria-label', 'High')
   await expect(articles.nth(1)).toHaveAttribute('aria-label', 'Middle')
   await expect(articles.nth(2)).toHaveAttribute('aria-label', 'Low')
+})
+test('guests can open a blog directly and see information without action buttons', async ({ page, request }) => {
+  const created = await seed(request)
+  await page.goto('/blogs/' + created.id)
+  const blog = page.getByRole('article', { name: 'Public fixture', exact: true })
+  await expect(blog.getByRole('heading')).toHaveText('Public fixture')
+  await expect(blog.locator('.like-count')).toHaveText('0')
+  await expect(blog.getByRole('button')).toHaveCount(0)
+})
+test('unauthenticated creation redirects to login; cancel returns to the list', async ({ page }) => {
+  await page.goto('/create')
+  await expect(page).toHaveURL(/\/login$/)
+  await login(page)
+  await page.getByRole('link', { name: 'Create new blog' }).click()
+  await page.getByRole('button', { name: 'Cancel', exact: true }).click()
+  await expect(page).toHaveURL(/\/$/)
 })
