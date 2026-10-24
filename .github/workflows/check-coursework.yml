@@ -7,12 +7,17 @@ permissions:
   contents: read
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     services:
       mongodb:
         image: mongo:8
         ports:
           - 27017:27017
+        options: >-
+          --health-cmd 'mongosh --quiet --eval "db.adminCommand({ ping: 1 })"'
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
     env:
       MONGODB_URI: mongodb://127.0.0.1:27017/phonebook_test
       NODE_ENV: test
@@ -25,3 +30,4 @@ jobs:
       - run: npm run build
       - run: npm run lint --workspace=part3/phonebook
       - run: npm test
+
