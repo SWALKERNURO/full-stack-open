@@ -158,7 +158,47 @@ cases = [
     ('@13-pet-search-challenge', '2\n\n , , \n GOLDEN , big ,\n\nexit\n', ['Our dog Nickname: lola matches your search for golden', 'Our dog Nickname: gus matches your search for golden']),
     ('@13-pet-search-challenge', '2\nkisses, friendly\n\nexit\n', ['Our dog Nickname: lola matches your search for kisses']),
     ('@13-pet-search-challenge', '2\n', []),
+    ('methods syntax', '', ['Before calling a method\nHello World!\nAfter calling a method\n1 2 3 4 5']),
+    ('methods random', '', ['Generating random numbers:']),
+    ('methods times', '-6\n6\n', ['8:00 12:00 16:00 20:00', 'New Medicine Schedule:\n20:00 0:00 4:00 8:00']),
+    ('methods times', '6\n-6\n', ['New Medicine Schedule:\n20:00 0:00 4:00 8:00']),
+    ('methods times', '-6\n-8\n', ['New Medicine Schedule:\n6:00 10:00 14:00 18:00']),
+    ('methods times', '13\n0\n', ['Invalid GMT', 'New Medicine Schedule:\n8:00 12:00 16:00 20:00']),
+    ('methods ipv4', '', ['107.31.1.5 is a valid IPv4 address', '255.0.0.255 is a valid IPv4 address', '555..0.555 is an invalid IPv4 address', '255...255 is an invalid IPv4 address']),
+    ('methods ipv4 0.0.0.0 255.255.255.255 1.02.3.4 1..2.3.4 256.2.3.4 999999999999.1.1.1 1.a.2.3', '', ['0.0.0.0 is a valid', '255.255.255.255 is a valid', '1.02.3.4 is an invalid', '1..2.3.4 is an invalid', '256.2.3.4 is an invalid', '999999999999.1.1.1 is an invalid', '1.a.2.3 is an invalid']),
+    ('methods fortune 24', '', ['You have much to fear.', 'may have unexpected outcomes.']),
+    ('methods fortune 25', '', ['You have much to appreciate.', 'should align with your values.']),
+    ('methods fortune 75', '', ['You have much to appreciate.', 'should align with your values.']),
+    ('methods fortune 76', '', ['You have much to look forward to.', 'is likely to succeed.']),
+    ('parameters times', '', ['800 -> 2000\n1200 -> 0\n1600 -> 400\n2000 -> 800']),
+    ('parameters scope', '', ['Jenna, Ayesha, Carlos, Viktor,', 'Robert, Vanya,', 'Circle with radius 12', 'Area = 452.38896', 'Circle with radius 24', 'Area = 1809.55584']),
+    ('parameters value', '', ['inside Multiply method: 3 x 4 = 12\nglobal statement: 3 x 4 = 0']),
+    ('parameters array', '', ['1 2 3 4 5\n0 0 0 0 0']),
+    ('parameters string', '', ['Start: Healthy\nMiddle: Unhealthy\nEnd: Healthy']),
+    ('parameters captured-string', '', ['Start: Healthy\nMiddle: Unhealthy\nEnd: Unhealthy']),
+    ('parameters rsvp', '', ['Sorry, Tony is not on the guest list', 'Name: Rebecca, \tParty Size: 1, \tAllergies: none', 'Name: Nadia, \tParty Size: 2, \tAllergies: Nuts', 'Name: Linh, \tParty Size: 2, \tAllergies: none', 'Name: Noor, \tParty Size: 4, \tAllergies: none', 'Name: Jonte, \tParty Size: 2, \tAllergies: Stone fruit']),
+    ('parameters email', '', ['robavin@contoso.com\nsibright@contoso.com\nkisinclair@contoso.com\naakamath@contoso.com\nsadelucchi@contoso.com\nsiali@contoso.com\nviashton@hayworth.com\ncodysart@hayworth.com\nshlawrence@hayworth.com\ndavaldes@hayworth.com']),
+    ('returns checkout', '', ['Total: $44.58']),
+    ('returns currency', '', ['$23.73 USD = $557655 VND\n$557655 VND = $23.73 USD']),
+    ('returns words', '', ['snake\nekans', 'there are snakes at the zoo\nereht era sekans ta eht ooz']),
+    ('returns palindrome', '', ['racecar: True', 'talented: False', 'deified: True', 'tent: False', 'tenet: True']),
+    ('returns palindrome a ab aa abba abcba', '', ['a: True', 'ab: False', 'aa: True', 'abba: True', 'abcba: True']),
+    ('returns coins-one 60', '', ['Change found at positions 2 and 5']),
+    ('returns coins-one 80', '', ['No two coins make change']),
+    ('returns coins 30', '', ['Change found at positions:\n0,3\n0,4\n1,3\n1,4\n3,6']),
+    ('returns coins 80', '', ['No two coins make change']),
+    ('returns coins 2 1 1 1 1 1 1', '', ['0,1\n0,2\n0,3\n0,4\n0,5']),
+    ('returns game', 'n\n', ['Would you like to play?']),
+    ('returns game 1 2 5 6 1 1', 'Y\ny\ny\nn\n', ['Roll a number greater than 1 to win!', 'You rolled a 2', 'Roll a number greater than 5 to win!', 'You rolled a 6', 'You rolled a 1', 'You lose!']),
+    ('returns game', 'y\nn\n', ['Play again?']),
+    ('zoo', '', ['School A', 'School B', 'School C']),
+    ('zoo 42', '', ['School A', 'School B', 'School C']),
+    ('@14-mini-game --verify', '', ['PASS food overlap detection', 'PASS optional horizontal speed', 'PASS temporary freeze and normal-state recovery', 'PASS food regeneration within bounds', 'PASS terminal resize detection', 'PASS optional unsupported-input termination', 'PASS escape termination']),
 ]
+prefix = sys.argv[2] if len(sys.argv) > 2 else ''
+if prefix:
+    cases = [case for case in cases if case[0].startswith(prefix)]
+    assert cases, f'No scenarios matched {prefix!r}'
 for mode, stdin, expected in cases:
     mode_parts = mode.split()
     target = assembly
@@ -172,6 +212,41 @@ for mode, stdin, expected in cases:
         assert result.stdout.strip() == '', result.stdout
     if mode == 'logic coin':
         assert result.stdout.strip() in ['heads', 'tails'], result.stdout
+    if mode == 'methods random':
+        values = list(map(int, result.stdout.splitlines()[1].split()))
+        assert len(values) == 5 and all(1 <= x <= 99 for x in values), result.stdout
+    if mode == 'parameters rsvp':
+        assert result.stdout.count('Name: ') == 5 and 'Name: Tony' not in result.stdout, result.stdout
+    if mode == 'parameters email':
+        assert len(result.stdout.splitlines()) == 10, result.stdout
+    if mode.startswith('zoo'):
+        animals = 'alpacas capybaras chickens ducks emus geese goats iguanas kangaroos lemurs llamas macaws ostriches pigs ponies rabbits sheep tortoises'.split()
+        sections = re.split(r'School [ABC]\n', result.stdout)[1:]
+        orders = []
+        for section, groups in zip(sections, [6, 3, 2]):
+            rows = section.strip().splitlines()
+            assert len(rows) == groups, (groups, rows)
+            found = []
+            for i, row in enumerate(rows, 1):
+                label, names = row.split(': ', 1)
+                assert label == f'Group {i}', row
+                assigned = names.split()
+                assert len(assigned) == 18 // groups, assigned
+                found.extend(assigned)
+            assert sorted(found) == animals, found
+            orders.append(found)
+        assert len(sections) == 3 and orders[0] != orders[1] and orders[1] != orders[2], orders
+    if mode == 'returns coins 2 1 1 1 1 1 1':
+        assert len(result.stdout.strip().splitlines()) == 6, result.stdout
+    if mode == 'returns game' and stdin == 'n\n':
+        assert 'You rolled' not in result.stdout, result.stdout
+    if mode == 'returns game' and stdin == 'y\nn\n':
+        target = int(re.search(r'greater than (\d+)', result.stdout)[1])
+        roll = int(re.search(r'You rolled a (\d+)', result.stdout)[1])
+        assert 1 <= target <= 5 and 1 <= roll <= 6, result.stdout
+        assert ('You win!' in result.stdout) == (roll > target), result.stdout
+    if mode == 'returns game 1 2 5 6 1 1':
+        assert result.stdout.count('You win!') == 2 and result.stdout.count('You lose!') == 1, result.stdout
     if mode == 'scope challenge 4 8':
         assert 'Set contains 42' not in result.stdout, result.stdout
     if mode == 'for break':
@@ -248,6 +323,9 @@ for mode, stdin, expected in cases:
         assert len(scores) == 8 and all(0 <= x <= 100 for x in scores), scores
         assert leaders == sorted(scores, reverse=True)[:5], (scores, leaders)
     print(f'PASS {mode}: {stdin.strip()!r}')
+if prefix:
+    print(f'{len(cases)} selected program scenarios passed')
+    sys.exit(0)
 log_assembly = root / 'labs' / '09-create-a-log-file-viewer' / 'bin' / 'Debug' / 'net10.0' / '09-create-a-log-file-viewer.dll'
 with tempfile.TemporaryDirectory(prefix='csharp-log-') as folder:
     log_path = Path(folder) / 'log.txt'

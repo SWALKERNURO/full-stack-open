@@ -78,4 +78,3 @@ internal static class FormattingExercises
         }
     }
 }
-

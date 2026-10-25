@@ -9,6 +9,10 @@ dotnet = sys.argv[1]
 scratch = Path(__file__).resolve().parent / 'obj' / 'compiler-checks'
 scratch.mkdir(parents=True, exist_ok=True)
 examples = [
+    ('missing-return', 'double GetDiscountedPrice(int itemIndex) { } Console.WriteLine(GetDiscountedPrice(0));', 'CS0161'),
+    ('narrow-return-type', 'int UsdToVnd(double usd) { return 23500 * usd; } Console.WriteLine(UsdToVnd(23.73));', 'CS0266'),
+    ('method-local-scope', 'PrintCircleArea(12); double circumference = 2 * pi * radius; void PrintCircleArea(int radius) { double pi = 3.14159; Console.WriteLine(pi * radius * radius); }', 'CS0103'),
+    ('named-argument-order', 'RSVP(allergies: "none", inviteOnly: false, "Linh", 2); void RSVP(string name, int partySize, string allergies, bool inviteOnly) {}', 'CS8323'),
     ('string-addition-to-int', 'int first = 2; string second = "4"; int result = first + second; Console.WriteLine(result);', 'CS0029'),
     ('foreach-assignment', 'string[] names = { "Alex", "David" }; foreach (var name in names) { if (name == "David") name = "Sammy"; }', 'CS1656'),
     ('outside-block', 'bool flag = true; if (flag) { int value = 10; Console.WriteLine(value); } Console.WriteLine(value);', 'CS0103'),

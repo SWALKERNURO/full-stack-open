@@ -22,7 +22,11 @@ switch (args.FirstOrDefault())
     case "arrays": ArrayExercises.Run(args.Skip(1).ToArray()); break;
     case "format": FormattingExercises.Run(args.Skip(1).FirstOrDefault()); break;
     case "strings": StringExercises.Run(args.Skip(1).FirstOrDefault()); break;
-    default: Console.WriteLine("Choose greeting, profile, variables, tip, temperature, dice, subscription, logic, scope, switch, for, while, types, convert, arrays, format, or strings."); break;
+    case "methods": FirstMethods.Run(args.Skip(1).ToArray()); break;
+    case "parameters": ParameterExercises.Run(args.Skip(1).FirstOrDefault()); break;
+    case "returns": ReturnExercises.Run(args.Skip(1).ToArray()); break;
+    case "zoo": ZooVisit.Run(args.Skip(1).FirstOrDefault()); break;
+    default: Console.WriteLine("Choose greeting, profile, variables, tip, temperature, dice, subscription, logic, scope, switch, for, while, types, convert, arrays, format, strings, methods, parameters, returns, or zoo."); break;
 }
 
 static void Greeting()

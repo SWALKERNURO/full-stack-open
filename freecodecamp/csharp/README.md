@@ -5,10 +5,10 @@ freeCodeCamp Foundational C# with Microsoft curriculum.
 
 ## Recorded progress
 
-- Microsoft Learn: the first twenty-three modules and their assessments are complete;
-  all twenty-three assessments scored 100%. The Part 1, 2, 3, and 4 trophies are earned.
-- freeCodeCamp: the first four sections are fully passed, including their
-  verified trophies: 27 of 40 course challenges complete.
+- Microsoft Learn: the first twenty-eight modules and their assessments are complete;
+  all twenty-eight assessments scored 100%. The Part 1 through 5 trophies are earned.
+- freeCodeCamp: the first five sections are fully passed, including their
+  verified trophies: 33 of 40 course challenges complete.
 - The Microsoft account is linked through the approved transcript-sharing flow.
 - The remaining course sections and final certification exam are not complete.
 
@@ -27,7 +27,7 @@ dotnet run --project CourseLabs.csproj -- dice
 dotnet run --project CourseLabs.csproj -- subscription
 ```
 
-The current verification checks 152 program scenarios, including zero tips,
+The current verification checks 188 program scenarios, including zero tips,
 freezing/boiling/negative temperatures, mutually exclusive doubles/triples
 bonuses, subscription notification/discount boundaries, SKU defaults, all 100
 FizzBuzz lines, battle outcomes, input validation, pet-data workflows, numeric
@@ -50,11 +50,11 @@ https://github.com/MicrosoftLearning/mslearn-csharp-programming at commit
 `MICROSOFT-STARTER-LICENSE.txt`.
 
 Build all completed projects with `python build.py /path/to/dotnet`, then run
-`python verify.py /path/to/dotnet`. There are currently ten projects and 152
+`python verify.py /path/to/dotnet`. There are currently eleven projects and 188
 passing program scenarios. Log checks use an isolated temporary directory and
 verify that repeated runs preserve existing entries.
 
-`python verify_compiler.py /path/to/dotnet` verifies eight compiler examples,
+`python verify_compiler.py /path/to/dotnet` verifies twelve compiler examples,
 including out-of-scope variables, definite assignment, and read-only foreach
 iteration variables. Expected diagnostics are checked in temporary projects.
 The Contoso Pets data is derived from Microsoft's official
@@ -63,6 +63,22 @@ The Contoso Pets data is derived from Microsoft's official
 `Guided-project-Work-with-variable-data-CSharp`, and
 `Challenge-project-work-variable-data-CSharp` starter projects; each lab retains
 the applicable license.
+
+Method exercises cover random output, time-zone adjustment, IPv4 validation,
+fortune branches, optional arguments, generated sample addresses, string and
+Boolean results, and bounded one- and two-dimensional array results. The zoo
+planner shuffles all 18 animals and assigns 6, 3, and 2 groups to the three schools.
+The mini-game, developed from `Challenge-project-Create-methods-in-CSharp`,
+supports food consumption, temporary freezing, optional speed and key handling,
+and resize termination. Live VS Code terminal checks verified food cleanup,
+appearance changes, freeze recovery, normal movement with speed disabled,
+unsupported-key behavior, and the resized-terminal exit message. Its `--verify`
+mode also checks fourteen game-state and boundary conditions.
+
+For focused local checks, pass a mode prefix after the dotnet path, for example
+`python verify.py /path/to/dotnet returns`. The default verification still runs
+the full suite. Numeric report precision is explicit to keep output consistent
+between Windows and Linux culture data.
 
 Code was prepared and tested with AI assistance under the account owner's
 direction. Completion claims reflect observed platform results, not estimated
