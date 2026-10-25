@@ -1,21 +1,22 @@
 # freeCodeCamp certification projects
 
-Source for 20 projects submitted through freeCodeCamp's v9 curriculum. These files are separate from the Full Stack Open exercises in this repository.
+AI-assisted source for the 30 required projects across the six requested freeCodeCamp v9 certifications. Example names, transactions, and form contents are fictional. No personal account export, progress token, or real authentication credential is included. Official starter files, fixture data, images, and video are credited where used.
 
-The projects were implemented with AI assistance. Example names, transactions, and form contents are fictional. No personal account export or authentication tokens are included. HTML/CSS scaffolding and the React loading templates supplied by freeCodeCamp are retained where used; exhibit images and the linked course video are credited in their pages.
+## Progress
 
-## Submitted project work
-
-| Curriculum | Projects | Passing automated checks |
+| Curriculum | Projects submitted on freeCodeCamp | Published project checks passed |
 | --- | ---: | ---: |
 | Responsive Web Design | 5 of 5 | 162 |
 | JavaScript | 5 of 5 | 126 |
 | Python | 5 of 5 | 103 |
 | Front-End Development Libraries | 5 of 5 | 96 |
-| **Total** | **20** | **487** |
+| Back-End Development and APIs | 0 of 5; source ready | 51 in CI |
+| Relational Databases | 0 of 5; source and SQL dumps ready | 102 in CI |
 
-These counts document the project checks shown by freeCodeCamp, not certification exam results. Exams and certificate claims remain pending. Back-end and database projects require a GitHub Codespaces workspace and are not yet submitted.
+**20 projects are submitted. The remaining 10 have verified code but still require completion and submission through the official course workspaces. No certification exam has been recorded as passed.**
 
-Each directory contains the source exported from the submitted project. The freeCodeCamp editor is the reference runtime. Plain HTML/CSS/JavaScript projects can also run through a local web server; console JavaScript runs with Node.js and Python projects with Python 3. JSX and TypeScript need the corresponding compilation support supplied by the course editor or an equivalent local toolchain.
+The back-end verifier runs the published assertions unchanged against the prepared applications overlaid onto the official course repository. Database CI runs the official test suites against isolated PostgreSQL 12 databases, including the required source-control checks. CI does not alter freeCodeCamp completion records or invoke progress webhooks.
 
-The currency converter uses fixed illustrative rates, not live financial data. The pet game's idle timer stops after all stats reach their limits and restarts after an action. Flashcards persist only in the browser's local storage.
+Verification runs: [back-end](https://github.com/SWALKERNURO/full-stack-open/actions/runs/40148414478), [databases](https://github.com/SWALKERNURO/full-stack-open/actions/runs/40149326954).
+
+See each folder's README for setup. The freeCodeCamp editor is the reference runtime for browser projects. JSX and TypeScript require the compilation support supplied by that editor or an equivalent local toolchain.

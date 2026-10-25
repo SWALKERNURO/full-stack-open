@@ -4,6 +4,8 @@ Implementation for the five freeCodeCamp v9 back-end certification projects. **P
 
 The GitHub Actions workflow overlays these files onto the official course repository at commit `0b4205fd428f5e9b1e9a0460e3b0bd0486f057d8`, installs the course dependencies, and executes the published project assertions unchanged against the running servers. It also checks prime inputs, timestamps, chat asset delivery and malformed messages, and watchlist validation and permissions. This verifies the code without changing course records.
 
+Verified: all **51 published checks**, **13 additional integration checks**, and **2 prime edge-case tests** passed in [CI run 40148414478](https://github.com/SWALKERNURO/full-stack-open/actions/runs/40148414478).
+
 ## Run in the official workspace
 
 Copy each project directory into its matching directory of the official [course repository](https://github.com/freeCodeCamp/back-end-development-and-apis), retaining its other files. Use Node.js 24 and `npm install` within each project. Start projects one at a time with `npm start`; the profile and watchlist APIs both use port 3000.
