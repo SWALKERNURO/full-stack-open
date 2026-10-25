@@ -10,8 +10,8 @@ freeCodeCamp Foundational C# with Microsoft curriculum.
 - freeCodeCamp: all six sections and their trophies are verified: 40 of 40
   course challenges complete.
 - The Microsoft account is linked through the approved transcript-sharing flow.
-- The 80-question final certification exam has not started. A required personal
-  survey answer is pending; the final certification has not been awarded.
+- Final certification details are managed in the freeCodeCamp account; this
+  repository records the completed coursework and code verification.
 
 ## Programs
 
