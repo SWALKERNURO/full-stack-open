@@ -5,10 +5,10 @@ freeCodeCamp Foundational C# with Microsoft curriculum.
 
 ## Recorded progress
 
-- Microsoft Learn: the first sixteen modules and their assessments are complete;
-  all sixteen assessments scored 100%. The Part 1, 2, and 3 trophies are earned.
-- freeCodeCamp: the first three sections are fully passed, including their
-  verified trophies: 19 of 40 course challenges complete.
+- Microsoft Learn: the first twenty-three modules and their assessments are complete;
+  all twenty-three assessments scored 100%. The Part 1, 2, 3, and 4 trophies are earned.
+- freeCodeCamp: the first four sections are fully passed, including their
+  verified trophies: 27 of 40 course challenges complete.
 - The Microsoft account is linked through the approved transcript-sharing flow.
 - The remaining course sections and final certification exam are not complete.
 
@@ -16,7 +16,8 @@ freeCodeCamp Foundational C# with Microsoft curriculum.
 
 `Program.cs` includes greeting, profile, variable, tip-calculator, temperature,
 dice-game, subscription-renewal, Boolean logic, scope, switch, for, and while
-exercises. Normal dice and subscription runs
+exercises, plus numeric types, conversions, array methods, formatting, and
+string extraction/replacement. Normal dice and subscription runs
 use random values. Optional arguments allow reproducible branch verification.
 
 ```text
@@ -26,16 +27,22 @@ dotnet run --project CourseLabs.csproj -- dice
 dotnet run --project CourseLabs.csproj -- subscription
 ```
 
-The current verification checks 108 program scenarios, including zero tips,
+The current verification checks 152 program scenarios, including zero tips,
 freezing/boiling/negative temperatures, mutually exclusive doubles/triples
 bonuses, subscription notification/discount boundaries, SKU defaults, all 100
-FizzBuzz lines, battle outcomes, input validation, and pet-data workflows.
+FizzBuzz lines, battle outcomes, input validation, pet-data workflows, numeric
+precision and conversion, report column positions, and single/multiple term
+dog-description searches.
 
 The standalone labs also include the VS Code console project, a five-guess
 number game, a Top 5 leaderboard, a billing calculator, and an append-only log
 viewer. Two Contoso Pets projects implement sample records, a repeating menu,
 validated entry, eight-pet capacity, and completion of missing age, description,
-nickname and personality fields. Complete records are preserved; unknown and
+nickname and personality fields. Two further pet-search projects add suggested
+donations formatted as currency and sorted, comma-separated search terms. The
+final search reports each matching term and displays each dog's description
+once. A rotating countdown runs from 2 to 0 and clears its status line; this
+was also verified in an interactive terminal. Complete records are preserved; unknown and
 blank fields prompt for valid input. The development setup uses Visual Studio Code with C# Dev Kit and .NET
 10. The starter lab files come from
 https://github.com/MicrosoftLearning/mslearn-csharp-programming at commit
@@ -43,16 +50,18 @@ https://github.com/MicrosoftLearning/mslearn-csharp-programming at commit
 `MICROSOFT-STARTER-LICENSE.txt`.
 
 Build all completed projects with `python build.py /path/to/dotnet`, then run
-`python verify.py /path/to/dotnet`. There are currently eight projects and 108
+`python verify.py /path/to/dotnet`. There are currently ten projects and 152
 passing program scenarios. Log checks use an isolated temporary directory and
 verify that repeated runs preserve existing entries.
 
-`python verify_compiler.py /path/to/dotnet` verifies seven compiler examples,
+`python verify_compiler.py /path/to/dotnet` verifies eight compiler examples,
 including out-of-scope variables, definite assignment, and read-only foreach
 iteration variables. Expected diagnostics are checked in temporary projects.
 The Contoso Pets data is derived from Microsoft's official
 `Guided-project-branching-looping-CSharp` and
-`Challenge-project-branching-looping-CSharp` starter projects; each lab retains
+`Challenge-project-branching-looping-CSharp`,
+`Guided-project-Work-with-variable-data-CSharp`, and
+`Challenge-project-work-variable-data-CSharp` starter projects; each lab retains
 the applicable license.
 
 Code was prepared and tested with AI assistance under the account owner's

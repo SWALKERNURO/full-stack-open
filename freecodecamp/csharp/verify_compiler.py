@@ -9,6 +9,7 @@ dotnet = sys.argv[1]
 scratch = Path(__file__).resolve().parent / 'obj' / 'compiler-checks'
 scratch.mkdir(parents=True, exist_ok=True)
 examples = [
+    ('string-addition-to-int', 'int first = 2; string second = "4"; int result = first + second; Console.WriteLine(result);', 'CS0029'),
     ('foreach-assignment', 'string[] names = { "Alex", "David" }; foreach (var name in names) { if (name == "David") name = "Sammy"; }', 'CS1656'),
     ('outside-block', 'bool flag = true; if (flag) { int value = 10; Console.WriteLine(value); } Console.WriteLine(value);', 'CS0103'),
     ('unassigned-local', 'bool flag = true; int value; if (flag) { Console.WriteLine(value); } value = 10; Console.WriteLine(value);', 'CS0165'),

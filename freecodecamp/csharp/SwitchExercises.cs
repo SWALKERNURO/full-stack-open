@@ -38,7 +38,7 @@ internal static class SwitchExercises
         switch (employeeLevel)
         {
             case 100:
-                title = args.FirstOrDefault() == "shared" ? "Senior Associate" : "Junior Associate";
+                title = "Junior Associate";
                 break;
             case 200: title = "Senior Associate"; break;
             case 300: title = "Manager"; break;

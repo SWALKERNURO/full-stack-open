@@ -114,6 +114,50 @@ cases = [
     ('@11-contoso-pets-challenge', '3\n2\nwhite cat\n\n3\n\n4\nsnow\nfriendly\n\n4\n\nexit\n', ['Age and physical description fields are complete', 'Nickname and personality description fields are complete']),
     ('@11-contoso-pets-challenge', '2\ndog\n?\n\n\n\nn\n3\n1\nwhite cat\n0\nblack dog\n\n4\nsnow\nquiet\nrex\nplayful\n\n1\n\nexit\n', ['ID #: d5\nSpecies: dog\nAge: 0\nNickname: rex\nPhysical description: black dog\nPersonality: playful']),
     ('@11-contoso-pets-challenge', '3\n', []),
+    ('types integral', '', ['sbyte  : -128 to 127', 'short  : -32768 to 32767', 'int    : -2147483648 to 2147483647', 'long   : -9223372036854775808 to 9223372036854775807', 'byte   : 0 to 255', 'ushort : 0 to 65535', 'uint   : 0 to 4294967295', 'ulong  : 0 to 18446744073709551615']),
+    ('types floating', '', ['float  : -3.4028235E+38 to 3.4028235E+38', 'double : -1.7976931348623157E+308 to 1.7976931348623157E+308', 'decimal: -79228162514264337593543950335 to 79228162514264337593543950335']),
+    ('types reference', '', ['Default array: 0, 0, 0', 'Hello World!', 'val_A: 2\nval_B: 5', 'ref_A[0]: 5\nref_B[0]: 5']),
+    ('convert demos', '', ['Concatenation: 24', 'int: 3\ndecimal: 3', 'decimal: 3.14\nint: 3', 'Decimal: 1.23456789\nFloat  : 1.2345679', 'ToString: 57', 'Parsed sum: 12', 'Converted product: 35', 'Truncated: 1\nRounded: 2']),
+    ('convert round 1.999', '', ['Truncated: 1\nRounded: 2']),
+    ('convert round 1.499', '', ['Truncated: 1\nRounded: 1']),
+    ('convert round 2.5', '', ['Truncated: 2\nRounded: 2']),
+    ('convert round -1.5', '', ['Truncated: -1\nRounded: -2']),
+    ('convert parse 102', '', ['Measurement: 102\nMeasurement (w/ offset): 152']),
+    ('convert parse bad', '', ['Unable to report the measurement.']),
+    ('convert parse 9999999999999999999999', '', ['Unable to report the measurement.']),
+    ('convert parse 0', '', ['Measurement: 0']),
+    ('convert format-error', '', ['Expected FormatException when parsing Bob.']),
+    ('convert mixed', '', ['Message: ABCDEF\nTotal: 68.3']),
+    ('convert mixed 1.5 A -2 B 0.5', '', ['Message: AB\nTotal: 0.0']),
+    ('convert math', '', ['as an int: 2', 'as a decimal: 1.4418604651162790697674418605', 'as a float: 0.3909091']),
+    ('arrays sort', '', ['Sorted...\nA11\nA13\nB12\nB14\nReversed...\nB14\nB12\nA13\nA11']),
+    ('arrays resize', '', ['Before: B14\nAfter: \nCleared value is null: True', 'Clearing 2 ... count: 4\n||B12|A13', 'Expected NullReferenceException', 'Resizing 6 ... count: 6\n||B12|A13|C01|C02', 'Resizing 3 ... count: 3\n||B12']),
+    ('arrays split', '', ['321cba\n3,2,1,c,b,a\n3\n2\n1\nc\nb\na']),
+    ('arrays words', '', ['ehT kciuq nworb xof spmuj revo eht yzal god']),
+    ('arrays words one a three', '', ['eno a eerht']),
+    ('arrays orders', '', ['A345\nB123\nB177\nB179\nC15 - Error\nC234\nC235\nG3003 - Error']),
+    ('arrays orders X123,X12,X1234', '', ['X12 - Error\nX123\nX1234 - Error']),
+    ('format basics', '', ['Hello World!\nWorld Hello!\nHello Hello Hello!', 'Price: $123.45 (Save $50.00)', 'Measurement: 123,456.79 units', 'Measurement: 123,456.7891 units', 'Tax rate: 36.79%', 'You saved $7.56 off the regular $67.55 price. A discount of 11.19%!']),
+    ('format receipt', '', ['Invoice Number: 1201', 'Shares: 25.457 Product', 'Sub Total: $2,750.00', 'Tax: 15.83%', 'Total Billed: $3,185.19']),
+    ('format padding', '', ['[    Pad this]', '[Pad this    ]', '----Pad this', 'Pad this----', '00C110']),
+    ('format letter', '', ['Dear Ms. Barros,', '2,975,000.00 shares at a return of 12.75%.', 'Glorious Future offers a return of 13.13%.', 'potential profit would be $63,000,000.00.', "Here's a quick comparison:\n\n"]),
+    ('strings substring', '', ['13\n36\n(inside the parentheses\ninside the parentheses\nbetween the tags']),
+    ('strings last', '', ['First h: 0; last h: 7', 'set of parentheses\nWhat if\nmore than\nset of parentheses']),
+    ('strings any', '', ["Found 'e' in 'Hello, world!' at index: 1.", '(find) the {opening symbols}\n(find) the {opening symbols}', 'What if\ndifferent symbols\nopen symbol\nmatching closing symbol']),
+    ('strings replace', '', ['123455000  3', 'This is example data']),
+    ('strings html', '', ['Quantity: 5000\nOutput: <h2>Widgets &reg;</h2><span>5000</span>']),
+    ('@12-pet-search-guided', '1\n\nexit\n', ['Suggested Donation: $85.00', 'Suggested Donation: $49.99', 'Suggested Donation: $40.00', 'Suggested Donation: $45.00']),
+    ('@12-pet-search-guided', '2\n\n   \n GOLDEN \n\nexit\n', ['Our dog Nickname: lola is a match!', 'Our dog Nickname: gus is a match!']),
+    ('@12-pet-search-guided', '2\nmedium\n\nexit\n', ['Our dog Nickname: lola is a match!']),
+    ('@12-pet-search-guided', '2\nscuba\n\nexit\n', ['None of our dogs are a match found for: scuba']),
+    ('@12-pet-search-guided', '2\nkisses\n\nexit\n', ['Our dog Nickname: lola is a match!']),
+    ('@12-pet-search-guided', '2\nfriendly\n\nexit\n', ['None of our dogs are a match found for: friendly']),
+    ('@12-pet-search-guided', '2\n', []),
+    ('@13-pet-search-challenge', '2\nlarge, cream, golden\n\nexit\n', ['Our dog Nickname: lola matches your search for cream', 'Our dog Nickname: lola matches your search for golden', 'Our dog Nickname: gus matches your search for golden', 'Our dog Nickname: gus matches your search for large']),
+    ('@13-pet-search-challenge', '2\nbig, grey, stripes\n\nexit\n', ['No matches found for any available dogs: big, grey, stripes']),
+    ('@13-pet-search-challenge', '2\n\n , , \n GOLDEN , big ,\n\nexit\n', ['Our dog Nickname: lola matches your search for golden', 'Our dog Nickname: gus matches your search for golden']),
+    ('@13-pet-search-challenge', '2\nkisses, friendly\n\nexit\n', ['Our dog Nickname: lola matches your search for kisses']),
+    ('@13-pet-search-challenge', '2\n', []),
 ]
 for mode, stdin, expected in cases:
     mode_parts = mode.split()
@@ -140,6 +184,34 @@ for mode, stdin, expected in cases:
         assert 'Hero was damaged' not in result.stdout, result.stdout
     if mode == 'while integer' and not stdin:
         assert 'accepted' not in result.stdout, result.stdout
+    if mode in ['convert parse bad', 'convert parse 0', 'convert parse 9999999999999999999999']:
+        assert 'offset' not in result.stdout, result.stdout
+    if mode == 'format padding':
+        line = next(x for x in result.stdout.splitlines() if x.startswith('769C'))
+        assert len(line) == 40 and line[:6] == '769C  ' and line[6:30].rstrip() == 'Mr. Stephen Ortega' and line[30:] == ' $5,000.00', repr(line)
+    if mode == 'format letter':
+        rows = result.stdout.strip().splitlines()[-2:]
+        assert rows[0][:20] == 'Magic Yield'.ljust(20) and rows[1][:20] == 'Glorious Future'.ljust(20), rows
+        assert rows[0][20:30] == '12.75%'.ljust(10) and rows[1][20:30] == '13.13%'.ljust(10), rows
+    if mode == '@12-pet-search-guided':
+        if stdin.startswith('1\n'):
+            assert result.stdout.count('Suggested Donation:') == 4, result.stdout
+        if 'medium' in stdin or 'kisses' in stdin:
+            assert result.stdout.count('is a match!') == 1 and 'Nickname: gus' not in result.stdout, result.stdout
+        if 'GOLDEN' in stdin:
+            assert result.stdout.count('is a match!') == 2 and result.stdout.count('Enter one desired') == 3, result.stdout
+    if mode == '@13-pet-search-challenge' and stdin != '2\n':
+        matches = [x for x in result.stdout.splitlines() if x.startswith('Our dog')]
+        if 'cream' in stdin:
+            assert len(matches) == 4 and 'cream' in matches[0] and 'golden' in matches[1] and 'golden' in matches[2] and 'large' in matches[3], matches
+            assert result.stdout.count('Nickname: lola (ID #: d1)') == 1 and result.stdout.count('Nickname: gus (ID #: d2)') == 1, result.stdout
+        if 'GOLDEN' in stdin:
+            assert result.stdout.count('Enter dog characteristics') == 3, result.stdout
+        if 'friendly' in stdin:
+            assert len(matches) == 1 and 'Nickname: gus (ID' not in result.stdout, result.stdout
+        # Captured output retains animation frames; an interactive terminal overwrites them.
+        for count in [2, 1, 0]:
+            assert re.search(r'searching our dog .*? [|/\\-] ' + str(count), result.stdout), result.stdout
     if mode == '@10-contoso-pets-guided':
         if stdin.startswith('1\n'):
             assert result.stdout.count('ID #: ') == 4, result.stdout

@@ -17,7 +17,12 @@ switch (args.FirstOrDefault())
     case "switch": SwitchExercises.Run(args.Skip(1).ToArray()); break;
     case "for": ForExercises.Run(args.Skip(1).FirstOrDefault()); break;
     case "while": WhileExercises.Run(args.Skip(1).ToArray()); break;
-    default: Console.WriteLine("Choose greeting, profile, variables, tip, or temperature."); break;
+    case "types": TypeExercises.Run(args.Skip(1).FirstOrDefault()); break;
+    case "convert": ConversionExercises.Run(args.Skip(1).ToArray()); break;
+    case "arrays": ArrayExercises.Run(args.Skip(1).ToArray()); break;
+    case "format": FormattingExercises.Run(args.Skip(1).FirstOrDefault()); break;
+    case "strings": StringExercises.Run(args.Skip(1).FirstOrDefault()); break;
+    default: Console.WriteLine("Choose greeting, profile, variables, tip, temperature, dice, subscription, logic, scope, switch, for, while, types, convert, arrays, format, or strings."); break;
 }
 
 static void Greeting()
