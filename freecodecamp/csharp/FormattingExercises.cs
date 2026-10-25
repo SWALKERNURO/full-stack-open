@@ -18,7 +18,8 @@ internal static class FormattingExercises
                 int discount = 50;
                 Console.WriteLine($"Price: {price:C} (Save {discount:C})");
                 decimal measurement = 123456.78912m;
-                Console.WriteLine($"Measurement: {measurement:N} units\nMeasurement: {measurement:N4} units");
+                // Specify precision because platform culture data can use different N defaults.
+                Console.WriteLine($"Measurement: {measurement:N2} units\nMeasurement: {measurement:N4} units");
                 decimal tax = .36785m;
                 Console.WriteLine($"Tax rate: {tax:P2}");
                 decimal regularPrice = 67.55m;
@@ -77,3 +78,4 @@ internal static class FormattingExercises
         }
     }
 }
+
