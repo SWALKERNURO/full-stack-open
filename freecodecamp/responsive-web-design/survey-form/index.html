@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Notes — Workshop Feedback</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:3rem 1rem;background:#edf1e9;color:#20352c;font:17px/1.55 system-ui,sans-serif}main{max-width:720px;margin:auto;background:#fffdf7;padding:clamp(1.4rem,5vw,3rem);border-top:8px solid #38654b;border-radius:12px;box-shadow:0 12px 40px #20352c12}.eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:#38654b}h1{font-size:clamp(2rem,6vw,2.8rem);line-height:1.1;margin:.7rem 0 1rem}#description{color:#4b5b51;margin-bottom:2rem}.fields{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.wide{grid-column:1/-1}label.field{display:grid;gap:.4rem;font-weight:650}input,select,textarea,button{font:inherit}input:not([type=radio]):not([type=checkbox]),select,textarea{width:100%;padding:.75rem;border:1px solid #899b8d;border-radius:5px;background:white;color:#20352c}fieldset{border:0;padding:0;margin:1.6rem 0}legend{font-weight:750;margin-bottom:.5rem}.choice{display:block;padding:.35rem 0}.choice input{accent-color:#38654b;margin-right:.5rem}textarea{resize:vertical}button{display:block;width:100%;margin-top:1.5rem;padding:.85rem;background:#28523b;color:white;border:0;border-radius:5px;font-weight:750;cursor:pointer}button:hover{background:#173a27}:is(input,select,textarea,button):focus-visible{outline:3px solid #b16a20;outline-offset:3px}footer{margin-top:1.5rem;font-size:.85rem;color:#4b5b51}@media(max-width:480px){body{padding:1rem .6rem}.fields{grid-template-columns:1fr}.wide{grid-column:auto}}
+</style>
+</head>
+<body>
+<main>
+<header><span class="eyebrow">Field Notes / Community Workshops</span><h1 id="title">Help shape the next workshop.</h1><p id="description">Tell us what you would like to learn and how you prefer to take part. Required fields are marked with an asterisk.</p></header>
+<form id="survey-form" action="#">
+<div class="fields">
+<label class="field" id="name-label" for="name">Name *<input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required></label>
+<label class="field" id="email-label" for="email">Email *<input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></label>
+<label class="field" id="number-label" for="number">Weekly practice hours<input id="number" name="hours" type="number" min="0" max="40" placeholder="Hours from 0 to 40"></label>
+<label class="field" for="dropdown">Preferred learning pace<select id="dropdown" name="pace"><option value="" disabled selected>Choose a pace</option value="self-paced">Learn at my own pace</option><option value="weekly">Weekly guided sessions</option><option value="intensive">A focused weekend workshop</option></select></label>
+</div>
+<fieldset><legend>How would you like to attend?</legend><label class="choice"><input type="radio" name="attendance" value="in-person">In person</label><label class="choice"><input type="radio" name="attendance" value="remote">Remotely</label><label class="choice"><input type="radio" name="attendance" value="either">Either works for me</label></fieldset>
+<fieldset><legend>Which topics interest you? Choose any.</legend><label class="choice"><input type="checkbox" name="topics" value="html">HTML and meaningful page structure</label><label class="choice"><input type="checkbox" name="topics" value="css">CSS and responsive layouts</label><label class="choice"><input type="checkbox" name="topics" value="accessibility">Accessible design</label></fieldset>
+<label class="field" for="comments">Anything else we should know?<textarea id="comments" name="comments" rows="5" placeholder="Share a topic, question, or suggestion."></textarea></label>
+<button id="submit" type="submit">Send feedback</button>
+</form>
+<footer>A fictional workshop survey, built as a responsive web design project.</footer>
+</main>
+</body>
+</html>
