@@ -16,3 +16,4 @@ jobs:
           dotnet-version: '10.0.x'
       - run: python3 freecodecamp/csharp/build.py "$(command -v dotnet)"
       - run: python3 freecodecamp/csharp/verify.py "$(command -v dotnet)"
+      - run: python3 freecodecamp/csharp/verify_compiler.py "$(command -v dotnet)"

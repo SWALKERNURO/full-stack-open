@@ -40,6 +40,80 @@ cases = [
     ('@07-create-a-leaderboard', '', ['Total rounds logged: 8']),
     ('@08-create-a-billing-calculator', '', ['Subtotal: $49.99', 'Tax:      $4.00', 'Total:    $53.99', 'Out-of-state subtotal: $80.00', 'Out-of-state tax:      $4.00', 'Out-of-state total:    $84.00']),
     ('@08-create-a-billing-calculator 0', '', ['Subtotal: $0.00', 'Tax:      $0.00', 'Total:    $0.00']),
+    ('logic equality', '', ['True\nFalse\nFalse\nTrue']),
+    ('logic normalize', '', ['True']),
+    ('logic inequality', '', ['False\nTrue\nTrue\nFalse']),
+    ('logic comparison', '', ['False\nTrue\nTrue\nTrue']),
+    ('logic contains', '', ['True\nFalse']),
+    ('logic negation', '', ['False\nTrue']),
+    ('logic discount 1001', '', ['Discount: 100\nDiscount: 100']),
+    ('logic discount 1000', '', ['Discount: 50\nDiscount: 50']),
+    ('logic discount 0', '', ['Discount: 50\nDiscount: 50']),
+    ('logic coin 0', '', ['heads']),
+    ('logic coin 1', '', ['tails']),
+    ('logic coin', '', []),
+    ('logic permissions Admin|Manager 55', '', ['Welcome, Admin user.']),
+    ('logic permissions Admin 56', '', ['Welcome, Super Admin user.']),
+    ('logic permissions Admin 0', '', ['Welcome, Admin user.']),
+    ('logic permissions Manager 20', '', ['Contact an Admin for access.']),
+    ('logic permissions Manager 19', '', ['You do not have sufficient privileges.']),
+    ('logic permissions Visitor 100', '', ['You do not have sufficient privileges.']),
+    ('scope inside', '', ['Inside the code block: 10']),
+    ('scope initialized', '', ['Inside the code block: 0\nOutside the code block: 10']),
+    ('scope constant', '', ['Inside the code block: 10\nOutside the code block: 10']),
+    ('scope styles', '', ['True\nTrue\nTrue']),
+    ('scope names bob', '', ['Found Bob']),
+    ('scope names steve', '', ['Found Steve']),
+    ('scope names alice', '', ['Found Chuck']),
+    ('scope challenge', '', ['Set contains 42\nTotal: 108']),
+    ('scope challenge 4 8', '', ['Total: 12']),
+    ('switch employee 100', '', ['John Smith, Junior Associate']),
+    ('switch employee 200', '', ['John Smith, Senior Associate']),
+    ('switch employee 201', '', ['John Smith, Associate']),
+    ('switch employee 300', '', ['John Smith, Manager']),
+    ('switch employee 400', '', ['John Smith, Senior Manager']),
+    ('switch shared 100', '', ['John Smith, Senior Associate']),
+    ('switch shared 200', '', ['John Smith, Senior Associate']),
+    ('switch sku', '', ['Product: Large Maroon Sweat shirt']),
+    ('switch sku 02-BL-S', '', ['Product: Small Black T-Shirt']),
+    ('switch sku 03-WH-M', '', ['Product: Medium White Sweat pants']),
+    ('switch sku 99-XX-X', '', ['Product: One Size Fits All White Other']),
+    ('for up', '', ['\n'.join(map(str, range(10)))]),
+    ('for down', '', ['\n'.join(map(str, range(10, -1, -1)))]),
+    ('for step', '', ['0\n3\n6\n9']),
+    ('for break', '', ['0\n1\n2\n3\n4\n5\n6\n7']),
+    ('for reverse', '', ['Michael\nDavid\nEddie\nAlex']),
+    ('for rename', '', ['Alex\nEddie\nSammy\nMichael']),
+    ('for fizzbuzz', '', ['3 - Fizz', '5 - Buzz', '15 - FizzBuzz', '100 - Buzz']),
+    ('while do 2 5 8 2 7', '', ['2\n5\n8\n2\n7']),
+    ('while do 7', '', ['7']),
+    ('while do', '', []),
+    ('while pretest 9 7 5 1', '', ['9\n7\n5\nLast number: 1']),
+    ('while pretest 2', '', ['Last number: 2']),
+    ('while continue 9 8 5 1 6 7', '', ['5\n1\n6\n7']),
+    ('while battle 1 1 7 6 9', '', ['Monster was damaged and lost 9 health and now has -7 health.', 'Hero wins!']),
+    ('while battle 1 2 1 4 7 6', '', ['Hero was damaged and lost 6 health and now has -2 health.', 'Monster wins!']),
+    ('while battle 10', '', ['Monster was damaged and lost 10 health and now has 0 health.', 'Hero wins!']),
+    ('while integer', 'two\n2\n7\n', ['invalid number', 'You entered 2.', 'Your input value (7) has been accepted.']),
+    ('while integer', '5\n10\n6\n', ['You entered 5.', 'You entered 10.', 'Your input value (6) has been accepted.']),
+    ('while integer', '9\n', ['Your input value (9) has been accepted.']),
+    ('while integer', '', []),
+    ('while role', 'Admin\n   Administrator   \n', ['"Admin" is not valid.', 'Your input value (Administrator) has been accepted.']),
+    ('while role', 'MANAGER\n', ['Your input value (MANAGER) has been accepted.']),
+    ('while role', 'user\n', ['Your input value (user) has been accepted.']),
+    ('while sentences', '', ['I like pizza\nI like roast chicken\nI like salad\nI like all three of the menu choices']),
+    ('@10-contoso-pets-guided', '1\n\nExit\n', ['ID #: d1', 'Nickname: lola', 'ID #: d2', 'ID #: c3', 'ID #: c4']),
+    ('@10-contoso-pets-guided', '2\ndog\n?\n\n\n\nn\n1\n\nexit\n', ['We currently have 4 pets', 'ID #: d5\nSpecies: dog\nAge: ?\nNickname: tbd\nPhysical description: tbd\nPersonality: tbd']),
+    ('@10-contoso-pets-guided', '2\nbird\nCAT\nwrong\n-1\n2\nWhite\nFriendly\nSnow\nmaybe\nn\n1\n\nexit\n', ['ID #: c5\nSpecies: cat\nAge: 2\nNickname: snow\nPhysical description: white\nPersonality: friendly']),
+    ('@10-contoso-pets-guided', '2\ndog\n1\nsmall\nplayful\nrex\ny\ncat\n0\nblack\nquiet\nmoon\nn\n1\n\nexit\n', ['ID #: d5', 'Nickname: rex', 'ID #: c6', 'Nickname: moon']),
+    ('@10-contoso-pets-guided', '2\n' + ('dog\n?\n\n\n\ny\n' * 3) + 'cat\n1\nsmall\nquiet\nlast\n\n2\n\n1\n\nexit\n', ['We have reached our limit', 'ID #: c8', 'Nickname: last']),
+    ('@10-contoso-pets-guided', '3\n\n8\n\nbad\nexit\n', ['Challenge Project', 'UNDER CONSTRUCTION', 'Please select a menu option']),
+    ('@10-contoso-pets-guided', '2\ndog\n', []),
+    ('@11-contoso-pets-challenge', '3\none\n-1\n1\n\n   \nsmall white Siamese cat weighing about 8 pounds. litter box trained.\n\n1\n\nexit\n', ['Age and physical description fields are complete', 'ID #: c4\nSpecies: cat\nAge: 1', 'Physical description: small white Siamese cat']),
+    ('@11-contoso-pets-challenge', '4\n\n   \nsnowflake\n\nloves to curl up in a warm spot\n\n1\n\nexit\n', ['Nickname and personality description fields are complete', 'Nickname: snowflake', 'Personality: loves to curl up in a warm spot']),
+    ('@11-contoso-pets-challenge', '3\n2\nwhite cat\n\n3\n\n4\nsnow\nfriendly\n\n4\n\nexit\n', ['Age and physical description fields are complete', 'Nickname and personality description fields are complete']),
+    ('@11-contoso-pets-challenge', '2\ndog\n?\n\n\n\nn\n3\n1\nwhite cat\n0\nblack dog\n\n4\nsnow\nquiet\nrex\nplayful\n\n1\n\nexit\n', ['ID #: d5\nSpecies: dog\nAge: 0\nNickname: rex\nPhysical description: black dog\nPersonality: playful']),
+    ('@11-contoso-pets-challenge', '3\n', []),
 ]
 for mode, stdin, expected in cases:
     mode_parts = mode.split()
@@ -52,6 +126,44 @@ for mode, stdin, expected in cases:
         assert value in result.stdout, (mode, stdin, value, result.stdout)
     if mode == 'subscription 11':
         assert result.stdout.strip() == '', result.stdout
+    if mode == 'logic coin':
+        assert result.stdout.strip() in ['heads', 'tails'], result.stdout
+    if mode == 'scope challenge 4 8':
+        assert 'Set contains 42' not in result.stdout, result.stdout
+    if mode == 'for break':
+        assert result.stdout.strip().splitlines() == list(map(str, range(8))), result.stdout
+    if mode == 'while do':
+        values = list(map(int, result.stdout.split()))
+        assert values and values[-1] == 7 and all(1 <= x <= 10 for x in values), values
+        assert 7 not in values[:-1], values
+    if mode == 'while battle 10':
+        assert 'Hero was damaged' not in result.stdout, result.stdout
+    if mode == 'while integer' and not stdin:
+        assert 'accepted' not in result.stdout, result.stdout
+    if mode == '@10-contoso-pets-guided':
+        if stdin.startswith('1\n'):
+            assert result.stdout.count('ID #: ') == 4, result.stdout
+        if 'Nickname: last' in result.stdout:
+            assert result.stdout.count('ID #: ') == 8 and 'ID #: d9' not in result.stdout, result.stdout
+        if 'bird' in stdin:
+            assert result.stdout.count("Enter 'dog' or 'cat'") == 2, result.stdout
+            assert result.stdout.count("Enter the pet's age") == 3, result.stdout
+    if mode == '@11-contoso-pets-challenge':
+        assert 'for ID #: d1' not in result.stdout and 'for ID #: d2' not in result.stdout and 'for ID #: c3' not in result.stdout, result.stdout
+        if stdin.startswith('3\none'):
+            assert result.stdout.count('Enter an age for ID #: c4') == 3, result.stdout
+            assert result.stdout.count('Enter a physical description for ID #: c4') == 3, result.stdout
+        if stdin.startswith('3\n2'):
+            assert result.stdout.count('Enter an age for ID #: c4') == 1, result.stdout
+            assert result.stdout.count('Enter a nickname for ID #: c4') == 1, result.stdout
+        if stdin == '3\n':
+            assert 'fields are complete' not in result.stdout, result.stdout
+    if mode == 'for fizzbuzz':
+        lines = result.stdout.strip().splitlines()
+        assert len(lines) == 100, len(lines)
+        for n, line in enumerate(lines, 1):
+            words = ('Fizz' if n % 3 == 0 else '') + ('Buzz' if n % 5 == 0 else '')
+            assert line == str(n) + (' - ' + words if words else ''), (n, line)
     if mode in ['subscription 0', 'subscription 6', 'subscription 10']:
         assert 'save' not in result.stdout, result.stdout
     if mode.startswith('dice') and mode != 'dice 5 5 3':

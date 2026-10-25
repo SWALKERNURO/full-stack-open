@@ -12,6 +12,11 @@ switch (args.FirstOrDefault())
     case "temperature": Temperature(); break;
     case "dice": Dice(args.Skip(1).ToArray()); break;
     case "subscription": Subscription(args.Skip(1).FirstOrDefault()); break;
+    case "logic": LogicExercises.Run(args.Skip(1).ToArray()); break;
+    case "scope": ScopeExercises.Run(args.Skip(1).ToArray()); break;
+    case "switch": SwitchExercises.Run(args.Skip(1).ToArray()); break;
+    case "for": ForExercises.Run(args.Skip(1).FirstOrDefault()); break;
+    case "while": WhileExercises.Run(args.Skip(1).ToArray()); break;
     default: Console.WriteLine("Choose greeting, profile, variables, tip, or temperature."); break;
 }
 
