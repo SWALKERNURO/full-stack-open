@@ -1,0 +1,136 @@
+name: Check freeCodeCamp database projects
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'freecodecamp/databases/**'
+      - '.github/workflows/check-freecodecamp-databases.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  database-checks:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - slug: celestial-bodies
+            repository: freeCodeCamp/learn-celestial-bodies-database
+            ref: 5fb8493694c4dccc55fc5acee35da474803006c2
+          - slug: world-cup
+            repository: freeCodeCamp/learn-world-cup-database
+            ref: 53c2c6d56b21281975156ecb48e6a8b2b8f62d1b
+          - slug: salon
+            repository: freeCodeCamp/learn-salon-appointment-scheduler
+            ref: 138fb9ad8ffd8d8bffa03b707805f2d1e42afd63
+          - slug: periodic-table
+            repository: freeCodeCamp/learn-periodic-table-database
+            ref: 814631f1a040b9bda43456e6f6e23677a043e55e
+          - slug: number-guess
+            repository: freeCodeCamp/learn-number-guessing-game
+            ref: 4fa49de0813232340d15fa81ec72494815789b21
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_PASSWORD: coursework-ci-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: localhost
+      PGPORT: '5432'
+      PGUSER: postgres
+      PGPASSWORD: coursework-ci-only
+      COURSE_SLUG: ${{ matrix.slug }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repository }}
+          ref: ${{ matrix.ref }}
+          path: upstream
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Prepare PostgreSQL and shell files
+        shell: bash
+        run: |
+          psql --dbname=postgres --set=ON_ERROR_STOP=1 -c "CREATE ROLE freecodecamp WITH LOGIN SUPERUSER PASSWORD 'coursework-ci-only';"
+          SOURCE="$GITHUB_WORKSPACE/freecodecamp/databases/$COURSE_SLUG"
+          case "$COURSE_SLUG" in
+            celestial-bodies)
+              psql --username=freecodecamp --dbname=postgres -f "$SOURCE/schema.sql"
+              ;;
+            world-cup)
+              psql --username=freecodecamp --dbname=postgres -f "$SOURCE/schema.sql"
+              psql --dbname=postgres -f upstream/.freeCodeCamp/worldcuptest.sql
+              cp "$SOURCE/insert_data.sh" "$SOURCE/queries.sh" upstream/
+              chmod +x upstream/insert_data.sh upstream/queries.sh
+              upstream/insert_data.sh
+              ;;
+            salon)
+              psql --username=freecodecamp --dbname=postgres -f "$SOURCE/schema.sql"
+              cp "$SOURCE/salon.sh" upstream/salon.sh
+              chmod +x upstream/salon.sh
+              ;;
+            periodic-table)
+              psql --dbname=postgres -f upstream/.freeCodeCamp/db.sql
+              psql --username=freecodecamp --dbname=periodic_table -f "$SOURCE/migrate.sql"
+              base64 --decode "$SOURCE/history.bundle.base64" > "$RUNNER_TEMP/periodic_table.bundle"
+              git clone --quiet "$RUNNER_TEMP/periodic_table.bundle" upstream/periodic_table
+              cmp "$SOURCE/element.sh" upstream/periodic_table/element.sh
+              ;;
+            number-guess)
+              psql --username=freecodecamp --dbname=postgres -f "$SOURCE/schema.sql"
+              base64 --decode "$SOURCE/history.bundle.base64" > "$RUNNER_TEMP/number_guess.bundle"
+              git clone --quiet "$RUNNER_TEMP/number_guess.bundle" upstream/number_guessing_game
+              cmp "$SOURCE/number_guess.sh" upstream/number_guessing_game/number_guess.sh
+              ;;
+          esac
+          find freecodecamp/databases -name '*.sh' -exec bash -n {} \;
+      - name: Install the official project test dependencies
+        working-directory: upstream/.freeCodeCamp
+        run: npm ci --ignore-scripts
+      - name: Run unchanged official project tests
+        working-directory: upstream/.freeCodeCamp
+        run: npm run programmatic-test -- --reporter=spec
+      - name: Check additional command-line behavior
+        shell: bash
+        run: |
+          case "$COURSE_SLUG" in
+            periodic-table) upstream/periodic_table/test.sh ;;
+            number-guess) python3 upstream/number_guessing_game/test_game.py ;;
+          esac
+      - name: Export verified database dump
+        shell: bash
+        env:
+          POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
+        run: |
+          case "$COURSE_SLUG" in
+            celestial-bodies) DB=universe ;;
+            world-cup) DB=worldcup ;;
+            salon)
+              DB=salon
+              psql --dbname=salon -c "TRUNCATE TABLE appointments, customers RESTART IDENTITY;"
+              ;;
+            periodic-table) DB=periodic_table ;;
+            number-guess)
+              DB=number_guess
+              psql --dbname=number_guess -c "TRUNCATE TABLE games, users RESTART IDENTITY;"
+              ;;
+          esac
+          docker exec "$POSTGRES_CONTAINER" pg_dump -cC --inserts -U freecodecamp "$DB" > "$DB.sql"
+          printf 'DUMP_BASE64_%s=' "$DB"
+          base64 --wrap=0 "$DB.sql"
+          printf '\n'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: database-${{ matrix.slug }}
+          path: '*.sql'
