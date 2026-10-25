@@ -1,0 +1,46 @@
+name: Check freeCodeCamp back-end projects
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'freecodecamp/backend/**'
+      - '.github/workflows/check-freecodecamp-backend.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  project-checks:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: freeCodeCamp/back-end-development-and-apis
+          ref: 0b4205fd428f5e9b1e9a0460e3b0bd0486f057d8
+          path: upstream
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install official course harness
+        working-directory: upstream
+        run: npm ci
+      - name: Overlay project source
+        shell: bash
+        run: |
+          for project in build-a-prime-number-checker-module build-a-personal-profile-app build-a-timestamp-microservice build-a-chat-app build-a-family-movie-watchlist-api; do
+            cp -R "freecodecamp/backend/$project/." "upstream/$project/"
+          done
+      - name: Install project dependencies
+        working-directory: upstream
+        shell: bash
+        run: |
+          for project in build-a-personal-profile-app build-a-timestamp-microservice build-a-chat-app build-a-family-movie-watchlist-api; do
+            npm install --prefix "$project" --ignore-scripts
+          done
+      - name: Check prime edge cases
+        working-directory: upstream/build-a-prime-number-checker-module
+        run: npm test
+      - name: Run unchanged official project tests and integration checks
+        working-directory: upstream
+        run: node ../freecodecamp/backend/scripts/check-official.mjs .

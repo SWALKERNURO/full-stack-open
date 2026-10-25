@@ -1,0 +1,13 @@
+{
+  "name": "personal-profile-app",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Camper Bot profile API",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "5.2.1"
+  }
+}

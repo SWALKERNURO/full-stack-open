@@ -1,0 +1,17 @@
+{
+  "name": "prime-checker",
+  "version": "1.0.0",
+  "description": "A prime-number checker for the freeCodeCamp back-end project.",
+  "keywords": [
+    "prime",
+    "mathematics",
+    "freecodecamp"
+  ],
+  "license": "MIT",
+  "author": "Spencer Walker",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  }
+}
