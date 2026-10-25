@@ -9,6 +9,7 @@ dotnet = sys.argv[1]
 scratch = Path(__file__).resolve().parent / 'obj' / 'compiler-checks'
 scratch.mkdir(parents=True, exist_ok=True)
 examples = [
+    ('try-without-handler', 'try { Console.WriteLine(3000); } Console.WriteLine("Exit program");', 'CS1524'),
     ('missing-return', 'double GetDiscountedPrice(int itemIndex) { } Console.WriteLine(GetDiscountedPrice(0));', 'CS0161'),
     ('narrow-return-type', 'int UsdToVnd(double usd) { return 23500 * usd; } Console.WriteLine(UsdToVnd(23.73));', 'CS0266'),
     ('method-local-scope', 'PrintCircleArea(12); double circumference = 2 * pi * radius; void PrintCircleArea(int radius) { double pi = 3.14159; Console.WriteLine(pi * radius * radius); }', 'CS0103'),

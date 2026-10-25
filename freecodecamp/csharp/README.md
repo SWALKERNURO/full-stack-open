@@ -5,12 +5,13 @@ freeCodeCamp Foundational C# with Microsoft curriculum.
 
 ## Recorded progress
 
-- Microsoft Learn: the first twenty-eight modules and their assessments are complete;
-  all twenty-eight assessments scored 100%. The Part 1 through 5 trophies are earned.
-- freeCodeCamp: the first five sections are fully passed, including their
-  verified trophies: 33 of 40 course challenges complete.
+- Microsoft Learn: all thirty-four modules and assessments are complete;
+  all thirty-four assessments scored 100%. All six learning-path trophies are earned.
+- freeCodeCamp: all six sections and their trophies are verified: 40 of 40
+  course challenges complete.
 - The Microsoft account is linked through the approved transcript-sharing flow.
-- The remaining course sections and final certification exam are not complete.
+- The 80-question final certification exam has not started. A required personal
+  survey answer is pending; the final certification has not been awarded.
 
 ## Programs
 
@@ -27,7 +28,7 @@ dotnet run --project CourseLabs.csproj -- dice
 dotnet run --project CourseLabs.csproj -- subscription
 ```
 
-The current verification checks 188 program scenarios, including zero tips,
+The current verification checks 234 program scenarios, including zero tips,
 freezing/boiling/negative temperatures, mutually exclusive doubles/triples
 bonuses, subscription notification/discount boundaries, SKU defaults, all 100
 FizzBuzz lines, battle outcomes, input validation, pet-data workflows, numeric
@@ -50,11 +51,11 @@ https://github.com/MicrosoftLearning/mslearn-csharp-programming at commit
 `MICROSOFT-STARTER-LICENSE.txt`.
 
 Build all completed projects with `python build.py /path/to/dotnet`, then run
-`python verify.py /path/to/dotnet`. There are currently eleven projects and 188
+`python verify.py /path/to/dotnet`. There are currently sixteen projects and 234
 passing program scenarios. Log checks use an isolated temporary directory and
 verify that repeated runs preserve existing entries.
 
-`python verify_compiler.py /path/to/dotnet` verifies twelve compiler examples,
+`python verify_compiler.py /path/to/dotnet` verifies thirteen compiler examples,
 including out-of-scope variables, definite assignment, and read-only foreach
 iteration variables. Expected diagnostics are checked in temporary projects.
 The Contoso Pets data is derived from Microsoft's official
@@ -84,3 +85,15 @@ Code was prepared and tested with AI assistance under the account owner's
 direction. Completion claims reflect observed platform results, not estimated
 personal study time. Microsoft Learn's listed training durations are curriculum
 estimates rather than measured hours worked by the account owner.
+
+The debugging and exception labs retain exercise stages separately from the
+corrected final cash-register project. The final project simulates 100 transactions,
+checks the independent balance after each attempt, and commits bill changes only
+after exact change is available. Its 17 state checks cover successful payments,
+underpayment, partial-change failure, input validation, and overflow without mutation.
+
+Live VS Code debugger work verified breakpoints, stepping, call stacks, conditional
+breakpoints, watches, runtime variable edits, and the first exception exercises.
+Later debug-adapter startup hung in this environment. Those later paths were
+verified with explicit .NET runs and assertions; the per-lab notes record that
+limitation and do not claim successful later GUI debug sessions.

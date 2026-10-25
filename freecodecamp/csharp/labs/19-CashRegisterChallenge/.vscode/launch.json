@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "cwd": "${workspaceFolder}",
+      "type": "coreclr",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/CashRegisterChallenge.dll",
+      "request": "launch",
+      "name": "CashRegisterChallenge",
+      "args": [
+        "random",
+        "42"
+      ],
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "preLaunchTask": "build"
+    }
+  ]
+}

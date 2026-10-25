@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "console": "integratedTerminal",
+      "name": "ThrowExceptions101",
+      "preLaunchTask": "build",
+      "type": "coreclr",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/ThrowExceptions101.dll",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false
+    }
+  ],
+  "version": "0.2.0"
+}

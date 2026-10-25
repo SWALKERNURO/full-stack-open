@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "type": "coreclr",
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "guided",
+        "42"
+      ],
+      "preLaunchTask": "build",
+      "request": "launch",
+      "name": "CashRegister guided",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/CashRegister.dll",
+      "console": "integratedTerminal"
+    }
+  ],
+  "version": "0.2.0"
+}

@@ -9,6 +9,52 @@ dotnet = sys.argv[1]
 root = Path(__file__).resolve().parent
 assembly = root / 'bin' / 'Debug' / 'net10.0' / 'CourseLabs.dll'
 cases = [
+    ('@19-CashRegisterChallenge baseline-sample', '', ['The till has 551 dollars', 'Expected till value: 551']),
+    ('@19-CashRegisterChallenge baseline-random 42', '', ['Could not make transaction: InvalidOperationException: Not enough money provided to complete the transaction.', 'Could not make transaction: InvalidOperationException: The till is unable to make change for the cash provided.', 'The till has 3100 dollars', 'Expected till value: 1250']),
+    ('@19-CashRegisterChallenge sample', '', ['The till has 551 dollars', 'Expected till value: 551']),
+    ('@19-CashRegisterChallenge random 42', '', ['Could not make transaction: InvalidOperationException: Not enough money provided to complete the transaction.', 'Could not make transaction: InvalidOperationException: The till is unable to make change for the cash provided.', 'The till has 1321 dollars', 'Expected till value: 1321']),
+    ('@19-CashRegisterChallenge random 0', '', ['Expected till value:']),
+    ('@19-CashRegisterChallenge random 1', '', ['Expected till value:']),
+    ('@19-CashRegisterChallenge random 7', '', ['Expected till value:']),
+    ('@19-CashRegisterChallenge random 200', '', ['Expected till value:']),
+    ('@19-CashRegisterChallenge random 2147483647', '', ['Expected till value:']),
+    ('@19-CashRegisterChallenge random -1', '', ['Expected till value:']),
+    ('@19-CashRegisterChallenge', '', ['Expected till value:']),
+    ('@19-CashRegisterChallenge --verify', '', ['PASS underpayment preserves every bill count', 'PASS failure after partial change is atomic', 'PASS newly received bills are available for change', '17 cash-register state scenarios passed']),
+    ('@18-CashRegister baseline-sample', '', ['The till has 551 dollars', 'Expected till value: 551']),
+    ('@18-CashRegister baseline-random 42', '', ['The till has 375 dollars', 'Expected till value: 440']),
+    ('@18-CashRegister fixed-sample', '', ['The till has 551 dollars', 'Expected till value: 551']),
+    ('@18-CashRegister fixed-random 42', '', ['The till has 440 dollars', 'Expected till value: 440']),
+    ('@18-CashRegister fixed-random 7', '', ['Transaction successfully completed.']),
+    ('@18-CashRegister fixed-random 200', '', ['Transaction successfully completed.']),
+    ('@18-CashRegister guided-sample', '', ['The till has 551 dollars', 'Expected till value: 551']),
+    ('@18-CashRegister guided 42', '', ['InvalidOperationException: Not enough money provided to complete the transaction.', 'InvalidOperationException: The till is unable to make the correct change.', 'The till has 1300 dollars', 'Expected till value: 1068']),
+    ('@17-ThrowExceptions101 baseline', '', ["'Process1' completed successfully.", "'Process1' encountered an issue, process aborted.", 'Invalid data. User input values must be valid integers.', 'Invalid data. User input values must be non-zero values.', "An error occurred during 'Workflow1'."]),
+    ('@17-ThrowExceptions101 workflow', '', ["'Process1' completed successfully.", "'Process1' encountered an issue, process aborted.", 'Invalid data. User input values must be valid integers.', "An error occurred during 'Workflow1'.", 'Invalid data. User input values must be non-zero values.']),
+    ('@17-ThrowExceptions101 workflow-valid', '', ["'Workflow1' completed successfully."]),
+    ('@17-ThrowExceptions101 workflow-format', '', ['Invalid data. User input values must be valid integers.', "'Process1' completed successfully.", "'Workflow1' completed successfully."]),
+    ('@17-ThrowExceptions101 workflow-zero-first', '', ["An error occurred during 'Workflow1'.", 'Invalid data. User input values must be non-zero values.']),
+    ('@17-ThrowExceptions101', '3\n11\n\n', ['The average of even numbers between 3 and 11 is 7.']),
+    ('@17-ThrowExceptions101', '3\n3\n3\n2\n11\n\n', ['ArgumentOutOfRangeException: upper bound must be greater than lower bound.', "(Parameter 'upperBound')", 'The average of even numbers between 3 and 11 is 7.']),
+    ('@17-ThrowExceptions101', '11\n3\n Exit \n', ['An error has occurred.', 'The upper bound must be greater than 11']),
+    ('@17-ThrowExceptions101', '3\n3\n', ['An error has occurred.', 'Enter a new upper bound']),
+    ('@17-ThrowExceptions101', 'abc\n3\n99999999999999\n11\n\n', ['Please enter a valid integer.', 'The average of even numbers between 3 and 11 is 7.']),
+    ('@17-ThrowExceptions101', '-5\n-1\n\n', ['The average of even numbers between -5 and -1 is -3.']),
+    ('@17-ThrowExceptions101', '2147483646\n2147483647\n\n', ['The average of even numbers between 2147483646 and 2147483647 is 2147483646.']),
+    ('@17-ThrowExceptions101', '-2147483648\n2147483647\n\n', ['The average of even numbers between -2147483648 and 2147483647 is -1.']),
+    ('@17-ThrowExceptions101', '0\n1\n\n', ['The average of even numbers between 0 and 1 is 0.']),
+    ('@17-ThrowExceptions101', '', ['Enter the lower bound:']),
+    ('@17-ThrowExceptions101', '3\n3\nfoo\n11\n\n', ['Please enter a valid integer.', 'The average of even numbers between 3 and 11 is 7.']),
+    ('@15-Debug101', '', ['10']),
+    ('@16-Exceptions101 handled', '', ['An exception has been caught', 'Exit program']),
+    ('@16-Exceptions101 stack', '', ['Exception caught in Process1', 'Exit program']),
+    ('@16-Exceptions101 specific-properties', '', ['Exception caught in Process1: Attempted to divide by zero.', 'Type: System.DivideByZeroException', 'SpecificExamples.WriteDivision()', 'SpecificExamples.InspectException()', 'Exit program']),
+    ('@16-Exceptions101 specific-divide', '', ['Exception caught in Process1: Attempted to divide by zero.', 'Exit program']),
+    ('@16-Exceptions101 specific-overflow', '', ['Reached overflow conversion', 'An exception has occurred', 'Exit program']),
+    ('@16-Exceptions101 specific-first', '', ['Exception caught in Process1: Attempted to divide by zero.', 'Exit program']),
+    ('@16-Exceptions101 specific-separate', '', ['Exception caught in WriteMessage: Attempted to divide by zero.', 'Exception caught in WriteMessage: Arithmetic operation resulted in an overflow.', 'Exit program']),
+    ('@16-Exceptions101 specific-parse', '', ['Invalid readResult. Please enter a valid number.', 'The number you entered is too large or too small.', 'Parsed: 0', 'Parsed: 2', 'Exit program']),
+    ('@16-Exceptions101 specific-challenge', '', ['Error: The number is too large to be represented as an integer. Arithmetic operation resulted in an overflow.', 'Error: The reference is null. Object reference not set to an instance of an object.', 'Error: Index out of range. Index was outside the bounds of the array.', 'Error: Cannot divide by zero. Attempted to divide by zero.', 'Exiting program.']),
     ('greeting', 'Spencer\n', ["Hello, Spencer! It's great to meet you.", 'Uppercase: SPENCER', 'Lowercase: spencer']),
     ('profile', 'Sam\n25\n', ['Hello, Sam! You are 25 years old.', 'Name: Sam\nAge: 25']),
     ('variables', '', ['Favorite food: pizza', 'Slices eaten: 3', 'Is hungry: False', 'Favorite color: blue', 'Slices eaten after dessert: 5']),
@@ -204,10 +250,55 @@ for mode, stdin, expected in cases:
     target = assembly
     if mode.startswith('@'):
         lab = mode_parts.pop(0)[1:]
-        target = root / 'labs' / lab / 'bin' / 'Debug' / 'net10.0' / (lab + '.dll')
+        project = next((root / 'labs' / lab).glob('*.csproj'))
+        target = project.parent / 'bin' / 'Debug' / 'net10.0' / (project.stem + '.dll')
     result = subprocess.run([dotnet, str(target), *mode_parts], input=stdin, capture_output=True, text=True, encoding='utf-8', timeout=20, check=True)
     for value in expected:
         assert value in result.stdout, (mode, stdin, value, result.stdout)
+    if mode.startswith('@19-CashRegisterChallenge'):
+        if '--verify' in mode:
+            assert len(re.findall(r'^PASS ', result.stdout, re.M)) == 17, result.stdout
+        else:
+            costs = [int(v) for v in re.findall(r'Customer is making a \$(\d+) purchase', result.stdout)]
+            assert len(costs) == (8 if 'sample' in mode else 100), (mode, len(costs))
+            assert all(2 <= cost <= 49 for cost in costs), costs
+            actual_tills = [int(v) for v in re.findall(r'The till has (\d+) dollars', result.stdout)]
+            expected_tills = [int(v) for v in re.findall(r'Expected till value: (\d+)', result.stdout)]
+            assert len(actual_tills) == len(expected_tills) == len(costs) + 1, result.stdout
+            if 'baseline-random' in mode:
+                assert actual_tills != expected_tills, (actual_tills, expected_tills)
+            else:
+                assert actual_tills == expected_tills, (mode, actual_tills, expected_tills)
+    if mode.startswith('@18-CashRegister'):
+        actual_tills = [int(v) for v in re.findall(r'The till has (\d+) dollars', result.stdout)]
+        expected_tills = [int(v) for v in re.findall(r'Expected till value: (\d+)', result.stdout)]
+        assert len(actual_tills) == len(expected_tills) and len(actual_tills) > 1, result.stdout
+        if 'fixed-' in mode or 'sample' in mode:
+            assert actual_tills == expected_tills, (mode, actual_tills, expected_tills)
+        else:
+            # Preserved starter/guided stages deliberately reproduce bugs fixed in the challenge project.
+            assert actual_tills != expected_tills, (mode, actual_tills, expected_tills)
+    if mode == '@15-Debug101':
+        assert result.stdout.strip() == '10', result.stdout
+    if mode == '@16-Exceptions101 specific-first':
+        assert 'Reached overflow conversion' not in result.stdout, result.stdout
+    if mode == '@16-Exceptions101 specific-overflow':
+        assert 'Exception caught in Process1' not in result.stdout, result.stdout
+    if mode == '@17-ThrowExceptions101' and stdin in ['11\n3\n Exit \n', '3\n3\n', '']:
+        assert 'The average of even numbers' not in result.stdout, result.stdout
+    if mode == '@17-ThrowExceptions101' and stdin.startswith('3\n3\n3\n2'):
+        assert result.stdout.count('An error has occurred.') == 3, result.stdout
+    if mode == '@17-ThrowExceptions101 workflow':
+        assert result.stdout == ("'Process1' completed successfully.\n\n"
+                                 "'Process1' encountered an issue, process aborted.\n"
+                                 "Invalid data. User input values must be valid integers.\n\n"
+                                 "An error occurred during 'Workflow1'.\n"
+                                 "Invalid data. User input values must be non-zero values.\n"), result.stdout
+    if mode == '@17-ThrowExceptions101 workflow-zero-first':
+        assert 'completed successfully' not in result.stdout, result.stdout
+    if mode == '@17-ThrowExceptions101 workflow-valid':
+        assert result.stdout.count("'Process1' completed successfully.") == 2, result.stdout
+        assert 'Invalid data.' not in result.stdout, result.stdout
     if mode == 'subscription 11':
         assert result.stdout.strip() == '', result.stdout
     if mode == 'logic coin':

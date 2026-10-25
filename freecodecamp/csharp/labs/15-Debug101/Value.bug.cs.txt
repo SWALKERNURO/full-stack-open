@@ -1,0 +1,8 @@
+/* Challenge: print the changed value. */
+int x = 5;
+ChangeValue(x);
+Console.WriteLine(x);
+void ChangeValue(int value)
+{
+    value = 10;
+}

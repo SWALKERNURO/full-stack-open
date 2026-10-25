@@ -1,0 +1,135 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "unhandled"
+      ],
+      "name": "Exceptions101 unhandled",
+      "type": "coreclr",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "console": "internalConsole"
+    },
+    {
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "handled"
+      ],
+      "name": "Exceptions101 handled",
+      "type": "coreclr",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "console": "internalConsole"
+    },
+    {
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "stack"
+      ],
+      "name": "Exceptions101 stack",
+      "type": "coreclr",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "console": "internalConsole"
+    },
+    {
+      "stopAtEntry": false,
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "type": "coreclr",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "preLaunchTask": "build",
+      "args": [
+        "specific-properties"
+      ],
+      "name": "Exceptions101 specific-properties"
+    },
+    {
+      "stopAtEntry": false,
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "type": "coreclr",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "preLaunchTask": "build",
+      "args": [
+        "specific-divide"
+      ],
+      "name": "Exceptions101 specific-divide"
+    },
+    {
+      "stopAtEntry": false,
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "type": "coreclr",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "preLaunchTask": "build",
+      "args": [
+        "specific-overflow"
+      ],
+      "name": "Exceptions101 specific-overflow"
+    },
+    {
+      "stopAtEntry": false,
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "type": "coreclr",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "preLaunchTask": "build",
+      "args": [
+        "specific-first"
+      ],
+      "name": "Exceptions101 specific-first"
+    },
+    {
+      "stopAtEntry": false,
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "type": "coreclr",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "preLaunchTask": "build",
+      "args": [
+        "specific-separate"
+      ],
+      "name": "Exceptions101 specific-separate"
+    },
+    {
+      "stopAtEntry": false,
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "type": "coreclr",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "preLaunchTask": "build",
+      "args": [
+        "specific-parse"
+      ],
+      "name": "Exceptions101 specific-parse"
+    },
+    {
+      "stopAtEntry": false,
+      "program": "${workspaceFolder}/bin/Debug/net10.0/Exceptions101.dll",
+      "request": "launch",
+      "type": "coreclr",
+      "cwd": "${workspaceFolder}",
+      "name": "Exceptions101 specific-challenge",
+      "console": "internalConsole",
+      "args": [
+        "specific-challenge"
+      ],
+      "preLaunchTask": "build"
+    }
+  ]
+}
