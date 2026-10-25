@@ -11,9 +11,9 @@ AI-assisted source for the 30 required projects across the six requested freeCod
 | Python | 5 of 5 | 103 |
 | Front-End Development Libraries | 5 of 5 | 96 |
 | Back-End Development and APIs | 5 of 5 | 51 in the official course workspace and CI |
-| Relational Databases | 0 of 5; source and SQL dumps ready | 102 in CI |
+| Relational Databases | 1 of 5; celestial bodies submitted | 24 in CodeRoad; all 102 in CI |
 
-**25 projects are submitted. The five database projects have verified source and SQL dumps; their official submissions are blocked by an empty CodeRoad view after the database workspace restart. The celestial database passed all 24 checks before restart, but its pass did not sync because the progress secret was not yet loaded. No certification exam has been recorded as passed.**
+**26 projects are submitted. Celestial Bodies Database passed its official CodeRoad checks, synced to the account, and its public source link was submitted. The four remaining database projects have verified source and SQL dumps and await official CodeRoad completion. No certification exam has been recorded as passed.**
 
 The back-end verifier runs the published assertions unchanged against the prepared applications overlaid onto the official course repository. Database CI runs the official test suites against isolated PostgreSQL 12 databases, including the required source-control checks. CI does not alter freeCodeCamp completion records or invoke progress webhooks.
 
