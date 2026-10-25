@@ -10,10 +10,10 @@ AI-assisted source for the 30 required projects across the six requested freeCod
 | JavaScript | 5 of 5 | 126 |
 | Python | 5 of 5 | 103 |
 | Front-End Development Libraries | 5 of 5 | 96 |
-| Back-End Development and APIs | 0 of 5; source ready | 51 in CI |
+| Back-End Development and APIs | 5 of 5 | 51 in the official course workspace and CI |
 | Relational Databases | 0 of 5; source and SQL dumps ready | 102 in CI |
 
-**20 projects are submitted. The remaining 10 have verified code but still require completion and submission through the official course workspaces. No certification exam has been recorded as passed.**
+**25 projects are submitted. The five database projects have verified source and SQL dumps; their official CodeRoad submissions are in progress. No certification exam has been recorded as passed.**
 
 The back-end verifier runs the published assertions unchanged against the prepared applications overlaid onto the official course repository. Database CI runs the official test suites against isolated PostgreSQL 12 databases, including the required source-control checks. CI does not alter freeCodeCamp completion records or invoke progress webhooks.
 
