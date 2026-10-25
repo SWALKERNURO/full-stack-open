@@ -11,7 +11,9 @@ const root = resolve(process.argv[2] || process.cwd());
 process.env.INIT_CWD = root;
 process.env.JWT_SECRET = 'grading-secret-value';
 const require = createRequire(join(root, 'package.json'));
-const { assert } = await import(pathToFileURL(require.resolve('chai')).href);
+const chai = await import(pathToFileURL(require.resolve('chai')).href);
+const assert = chai.assert ?? chai.default?.assert;
+strict.equal(typeof assert, 'function', 'The course Chai assertion API must load.');
 const helpers = await import(pathToFileURL(join(root, 'tooling/helpers.js')).href);
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 const projects = [
