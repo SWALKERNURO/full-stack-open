@@ -40,6 +40,8 @@ jobs:
         shell: bash
         run: |
           for project in build-a-personal-profile-app build-a-timestamp-microservice build-a-chat-app build-a-family-movie-watchlist-api; do
+            # Overlay manifests are authoritative; discard stale upstream project locks.
+            rm -f "$project/package-lock.json"
             npm install --prefix "$project" --ignore-scripts
             npm audit --prefix "$project" --audit-level=low
           done
