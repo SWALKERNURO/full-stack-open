@@ -1,0 +1,25 @@
+name: Check browser script integrity
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'freecodecamp/front-end-libraries/**'
+      - '.github/workflows/check-web-demo-integrity.yml'
+  pull_request:
+    paths:
+      - 'freecodecamp/front-end-libraries/**'
+      - '.github/workflows/check-web-demo-integrity.yml'
+permissions:
+  contents: read
+jobs:
+  script-integrity:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --ignore-scripts --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: node freecodecamp/front-end-libraries/check-integrity.cjs

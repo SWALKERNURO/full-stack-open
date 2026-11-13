@@ -1,7 +1,16 @@
 import express from "express";
+import { rateLimit } from "express-rate-limit";
 import cors from "cors";
 
 const app = express();
+// Bound per-process request work before parsing bodies, authorization or database access.
+app.use(rateLimit({
+  windowMs: 60_000,
+  limit: 1000,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  message: { error: 'Too many requests; retry shortly.' },
+}));
 
 app.use(cors({ optionsSuccessStatus: 200 }));
 

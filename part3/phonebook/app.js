@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import { rateLimit } from 'express-rate-limit'
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
@@ -7,6 +8,14 @@ import Person from './models/person.js'
 import { connectDatabase } from './database.js'
 
 const app = express()
+// Bound per-process request work before parsing bodies, authorization or database access.
+app.use(rateLimit({
+  windowMs: 60_000,
+  limit: 1000,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  message: { error: 'Too many requests; retry shortly.' },
+}))
 app.use(cors(process.env.CORS_ORIGIN ? { origin: process.env.CORS_ORIGIN } : {}))
 app.use(express.json({ limit: '16kb' }))
 morgan.token('post-body', request => request.method === 'POST' ? JSON.stringify(request.body) : '')
