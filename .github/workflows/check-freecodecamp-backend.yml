@@ -41,6 +41,7 @@ jobs:
         run: |
           for project in build-a-personal-profile-app build-a-timestamp-microservice build-a-chat-app build-a-family-movie-watchlist-api; do
             npm install --prefix "$project" --ignore-scripts
+            npm audit --prefix "$project" --audit-level=low
           done
       - name: Check prime edge cases
         working-directory: upstream/build-a-prime-number-checker-module
