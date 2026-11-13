@@ -5,7 +5,19 @@ const path = require('path');
 const assert = require('assert/strict');
 (async () => {
  const root=__dirname;
- const server=http.createServer((req,res)=>{const p=path.join(root,decodeURIComponent(req.url).replace(/\?.*$/,''));try {const data=fs.readFileSync(p);res.setHeader('Content-Type',p.endsWith('.html')?'text/html':p.endsWith('.jsx')||p.endsWith('.tsx')?'text/plain':'text/css');res.end(data);}catch{res.statusCode=404;res.end();}}).listen(0,'127.0.0.1');
+ // Preload trusted demo files: HTTP request paths never reach the filesystem.
+ const files=new Map();
+ for(const project of ['currency-converter','digital-pet','tic-tac-toe']) {
+   for(const name of ['index.html','index.jsx','index.tsx','styles.css']) {
+     const filename=path.join(root,project,name);
+     if(fs.existsSync(filename)) files.set(`/${project}/${name}`,{data:fs.readFileSync(filename),type:name.endsWith('.html')?'text/html':name.endsWith('.css')?'text/css':'text/plain'});
+   }
+ }
+ const server=http.createServer((req,res)=>{
+   const file=files.get(req.url.split('?')[0]);
+   if(!file){res.statusCode=404;res.end();return;}
+   res.setHeader('Content-Type',file.type);res.end(file.data);
+ }).listen(0,'127.0.0.1');
  await new Promise(r=>server.once('listening',r));
  const browser=await chromium.launch({headless:true});
  try {
