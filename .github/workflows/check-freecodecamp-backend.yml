@@ -26,9 +26,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Install official course harness
+      - name: Install and audit patched official course harness dependencies
         working-directory: upstream
-        run: npm ci
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const overrides = JSON.parse(fs.readFileSync('../freecodecamp/backend/scripts/harness-dependency-overrides.json', 'utf8'));
+          pkg.overrides = { ...pkg.overrides, ...overrides };
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          NODE
+          npm install --ignore-scripts
+          npm audit --audit-level=low
       - name: Overlay project source
         shell: bash
         run: |
@@ -40,7 +49,10 @@ jobs:
         shell: bash
         run: |
           for project in build-a-personal-profile-app build-a-timestamp-microservice build-a-chat-app build-a-family-movie-watchlist-api; do
+            # Overlay manifests are authoritative; discard stale upstream project locks.
+            rm -f "$project/package-lock.json"
             npm install --prefix "$project" --ignore-scripts
+            npm audit --prefix "$project" --audit-level=low
           done
       - name: Check prime edge cases
         working-directory: upstream/build-a-prime-number-checker-module
